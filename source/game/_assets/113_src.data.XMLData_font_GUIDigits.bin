@@ -1,0 +1,50 @@
+<root>
+	<Character char="0">
+		<x>0</x>
+		<width>8</width>
+	</Character>
+	<Character char="1">
+		<x>8</x>
+		<width>8</width>
+	</Character>
+	<Character char="2">
+		<x>16</x>
+		<width>8</width>
+	</Character>
+	<Character char="3">
+		<x>24</x>
+		<width>8</width>
+	</Character>
+	<Character char="4">
+		<x>32</x>
+		<width>8</width>
+	</Character>
+	<Character char="5">
+		<x>40</x>
+		<width>8</width>
+	</Character>
+	<Character char="6">
+		<x>48</x>
+		<width>8</width>
+	</Character>
+	<Character char="7">
+		<x>56</x>
+		<width>8</width>
+	</Character>
+	<Character char="8">
+		<x>64</x>
+		<width>8</width>
+	</Character>
+	<Character char="9">
+		<x>72</x>
+		<width>8</width>
+	</Character>
+	<Character char="/">
+		<x>80</x>
+		<width>8</width>
+	</Character>
+	<Character char="-">
+		<x>88</x>
+		<width>6</width>
+	</Character>
+</root>

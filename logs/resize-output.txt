@@ -1,0 +1,1 @@
+﻿Fonts should be embedded for any text that may be edited at runtime, other than text with the "Use Device Fonts" setting. Use the Text > Font Embedding command to embed fonts.

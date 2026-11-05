@@ -1,0 +1,352 @@
+<root>
+	<Enemy name="Bomber">
+		<health>18</health>
+		<damage>20</damage>
+		<speed>4</speed>
+		<range>60</range>
+		<loot>50</loot>
+		<points>25000</points>
+		<isAir>0</isAir>
+		<bulletType>0</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>40</bulletSpawnX>
+		<bulletSpawnY>10</bulletSpawnY>
+		<width>107</width>
+		<height>78</height>
+		<frames>19</frames>
+		<xPosition>28</xPosition>
+		<yPosition>22</yPosition>
+		<boundsWidth>46</boundsWidth>
+		<boundsHeight>56</boundsHeight>
+		<image>enemy_bomber</image>
+		
+		<Animation name="RUN" startFrame="1" endFrame="6" delay="3" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="8" endFrame="8" delay="10" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="9" endFrame="9" delay="2" direction="1" loops="0" nextSequence="SHOOT3"></Animation>
+		<Animation name="SHOOT3" startFrame="10" endFrame="11" delay="4" direction="1" loops="0" nextSequence="SHOOT4"></Animation>
+		<Animation name="SHOOT4" startFrame="12" endFrame="12" delay="2" direction="1" loops="0" nextSequence="SHOOT5"></Animation>
+		<Animation name="SHOOT5" startFrame="13" endFrame="13" delay="4" direction="1" loops="0" nextSequence="SHOOT6"></Animation>
+		<Animation name="SHOOT6" startFrame="14" endFrame="14" delay="60" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="14" endFrame="14" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="DEATH" startFrame="15" endFrame="15" delay="6" direction="1" loops="0" nextSequence="DEATH2"></Animation>
+		<Animation name="DEATH2" startFrame="15" endFrame="18" delay="3" direction="1" loops="0" nextSequence="DEAD"></Animation>
+		<Animation name="DEAD" startFrame="19" endFrame="19" delay="150" direction="1" loops="0" nextSequence="FADE"></Animation>
+		<Animation name="FADE" startFrame="19" endFrame="19" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="19" endFrame="19" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Dagger">
+		<health>12</health>
+		<damage>1</damage>
+		<speed>3</speed>
+		<range>60</range>
+		<loot>10</loot>
+		<points>1000</points>
+		<isAir>0</isAir>
+		<bulletType>0</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>52</bulletSpawnX>
+		<bulletSpawnY>31</bulletSpawnY>
+		<width>97</width>
+		<height>71</height>
+		<frames>18</frames>
+		<xPosition>14</xPosition>
+		<yPosition>0</yPosition>
+		<boundsWidth>40</boundsWidth>
+		<boundsHeight>71</boundsHeight>
+		<image>enemy_dagger</image>
+		
+		<Animation name="RUN" startFrame="1" endFrame="6" delay="4" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="IDLE" startFrame="7" endFrame="7" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="7" endFrame="10" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="11" endFrame="11" delay="2" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="9" endFrame="11" delay="2" direction="-1" loops="0" nextSequence="FIRE2"></Animation>
+		<Animation name="FIRE2" startFrame="8" endFrame="8" delay="2" direction="-1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="7" endFrame="7" delay="20" direction="1" loops="0" nextSequence="IDLE"></Animation>
+		<Animation name="DEATH" startFrame="13" endFrame="17" delay="3" direction="1" loops="0" nextSequence="DEAD"></Animation>
+		<Animation name="DEAD" startFrame="18" endFrame="18" delay="150" direction="1" loops="0" nextSequence="FADE"></Animation>
+		<Animation name="FADE" startFrame="18" endFrame="18" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="18" endFrame="18" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Helicopter">
+		<health>150</health>
+		<damage>2</damage>
+		<speed>5</speed>
+		<range>0</range>
+		<loot>300</loot>
+		<points>200000</points>
+		<isAir>1</isAir>
+		<bulletType>6</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>6</bulletSpawnX>
+		<bulletSpawnY>37</bulletSpawnY>
+		<width>207</width>
+		<height>141</height>
+		<frames>21</frames>
+		<xPosition>9</xPosition>
+		<yPosition>11</yPosition>
+		<boundsWidth>168</boundsWidth>
+		<boundsHeight>102</boundsHeight>
+		<image>enemy_helicopter</image>
+		
+		<Animation name="RUN" startFrame="1" endFrame="3" delay="2" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="IDLE" startFrame="1" endFrame="1" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="6" endFrame="6" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="7" endFrame="7" delay="2" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="8" endFrame="14" delay="2" direction="1" loops="0" nextSequence="FIRE2"></Animation>
+		<Animation name="FIRE2" startFrame="15" endFrame="15" delay="2" direction="1" loops="0" nextSequence="SHOOT3"></Animation>
+		<Animation name="SHOOT3" startFrame="16" endFrame="20" delay="2" direction="1" loops="0" nextSequence="SHOOT4"></Animation>
+		<Animation name="SHOOT4" startFrame="6" endFrame="6" delay="2" direction="1" loops="0" nextSequence="FIRE3"></Animation>
+		<Animation name="FIRE3" startFrame="7" endFrame="7" delay="2" direction="1" loops="0" nextSequence="SHOOT5"></Animation>
+		<Animation name="SHOOT5" startFrame="8" endFrame="14" delay="2" direction="1" loops="0" nextSequence="FIRE4"></Animation>
+		<Animation name="FIRE4" startFrame="15" endFrame="15" delay="2" direction="1" loops="0" nextSequence="SHOOT6"></Animation>
+		<Animation name="SHOOT6" startFrame="16" endFrame="20" delay="2" direction="1" loops="0" nextSequence="SHOOT7"></Animation>
+		<Animation name="SHOOT7" startFrame="6" endFrame="6" delay="2" direction="1" loops="0" nextSequence="FIRE5"></Animation>
+		<Animation name="FIRE5" startFrame="7" endFrame="7" delay="2" direction="1" loops="0" nextSequence="SHOOT8"></Animation>
+		<Animation name="SHOOT8" startFrame="8" endFrame="14" delay="2" direction="1" loops="0" nextSequence="FIRE6"></Animation>
+		<Animation name="FIRE6" startFrame="15" endFrame="15" delay="2" direction="1" loops="0" nextSequence="SHOOT9"></Animation>
+		<Animation name="SHOOT9" startFrame="16" endFrame="20" delay="2" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="3" delay="2" direction="1" loops="25" nextSequence="IDLE"></Animation>
+		<Animation name="DEAD" startFrame="21" endFrame="21" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="FADE" startFrame="21" endFrame="21" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="21" endFrame="21" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Humvee">
+		<health>100</health>
+		<damage>2</damage>
+		<speed>3</speed>
+		<range>250</range>
+		<loot>150</loot>
+		<points>50000</points>
+		<isAir>0</isAir>
+		<bulletType>2</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>34</bulletSpawnX>
+		<bulletSpawnY>97</bulletSpawnY>
+		<width>171</width>
+		<height>121</height>
+		<frames>19</frames>
+		<xPosition>12</xPosition>
+		<yPosition>32</yPosition>
+		<boundsWidth>156</boundsWidth>
+		<boundsHeight>89</boundsHeight>
+		<image>enemy_humvee</image>
+		
+		<Animation name="RUN" startFrame="7" endFrame="12" delay="2" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="IDLE" startFrame="7" endFrame="7" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="13" endFrame="13" delay="3" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="14" endFrame="14" delay="3" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="15" endFrame="16" delay="3" direction="1" loops="0" nextSequence="SHOOT3"></Animation>
+		<Animation name="SHOOT3" startFrame="13" endFrame="13" delay="3" direction="1" loops="0" nextSequence="FIRE2"></Animation>
+		<Animation name="FIRE2" startFrame="14" endFrame="14" delay="3" direction="1" loops="0" nextSequence="SHOOT4"></Animation>
+		<Animation name="SHOOT4" startFrame="15" endFrame="16" delay="3" direction="1" loops="0" nextSequence="SHOOT5"></Animation>
+		<Animation name="SHOOT5" startFrame="13" endFrame="13" delay="3" direction="1" loops="0" nextSequence="FIRE3"></Animation>
+		<Animation name="FIRE3" startFrame="14" endFrame="14" delay="3" direction="1" loops="0" nextSequence="SHOOT6"></Animation>
+		<Animation name="SHOOT6" startFrame="15" endFrame="16" delay="3" direction="1" loops="0" nextSequence="SHOOT7"></Animation>
+		<Animation name="SHOOT7" startFrame="13" endFrame="13" delay="3" direction="1" loops="0" nextSequence="FIRE4"></Animation>
+		<Animation name="FIRE4" startFrame="14" endFrame="14" delay="3" direction="1" loops="0" nextSequence="SHOOT8"></Animation>
+		<Animation name="SHOOT8" startFrame="15" endFrame="16" delay="3" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="2" delay="3" direction="1" loops="17" nextSequence="IDLE"></Animation>
+		<Animation name="DEAD" startFrame="19" endFrame="19" delay="150" direction="1" loops="0" nextSequence="FADE"></Animation>
+		<Animation name="FADE" startFrame="19" endFrame="19" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="19" endFrame="19" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Pistol">
+		<health>15</health>
+		<damage>1</damage>
+		<speed>2</speed>
+		<range>300</range>
+		<loot>10</loot>
+		<points>5000</points>
+		<isAir>0</isAir>
+		<bulletType>1</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>48</bulletSpawnX>
+		<bulletSpawnY>60</bulletSpawnY>
+		<width>116</width>
+		<height>78</height>
+		<frames>19</frames>
+		<xPosition>18</xPosition>
+		<yPosition>10</yPosition>
+		<boundsWidth>36</boundsWidth>
+		<boundsHeight>68</boundsHeight>
+		<image>enemy_pistol</image>
+		
+		<Animation name="RUN" startFrame="1" endFrame="6" delay="4" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="IDLE" startFrame="8" endFrame="8" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="9" endFrame="9" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="10" endFrame="10" delay="2" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="11" endFrame="12" delay="2" direction="1" loops="0" nextSequence="FIRE2"></Animation>
+		<Animation name="FIRE2" startFrame="13" endFrame="13" delay="2" direction="1" loops="0" nextSequence="SHOOT3"></Animation>
+		<Animation name="SHOOT3" startFrame="14" endFrame="14" delay="2" direction="1" loops="0" nextSequence="SHOOT4"></Animation>
+		<Animation name="SHOOT4" startFrame="9" endFrame="9" delay="2" direction="1" loops="0" nextSequence="FIRE3"></Animation>
+		<Animation name="FIRE3" startFrame="10" endFrame="10" delay="2" direction="1" loops="0" nextSequence="SHOOT5"></Animation>
+		<Animation name="SHOOT5" startFrame="11" endFrame="12" delay="2" direction="1" loops="0" nextSequence="FIRE4"></Animation>
+		<Animation name="FIRE4" startFrame="13" endFrame="13" delay="2" direction="1" loops="0" nextSequence="SHOOT6"></Animation>
+		<Animation name="SHOOT6" startFrame="14" endFrame="14" delay="2" direction="1" loops="0" nextSequence="SHOOT7"></Animation>
+		<Animation name="SHOOT7" startFrame="9" endFrame="9" delay="2" direction="1" loops="0" nextSequence="FIRE5"></Animation>
+		<Animation name="FIRE5" startFrame="10" endFrame="10" delay="2" direction="1" loops="0" nextSequence="SHOOT8"></Animation>
+		<Animation name="SHOOT8" startFrame="11" endFrame="12" delay="2" direction="1" loops="0" nextSequence="FIRE6"></Animation>
+		<Animation name="FIRE6" startFrame="13" endFrame="13" delay="2" direction="1" loops="0" nextSequence="SHOOT9"></Animation>
+		<Animation name="SHOOT9" startFrame="14" endFrame="14" delay="2" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="8" endFrame="8" delay="20" direction="1" loops="0" nextSequence="IDLE"></Animation>
+		<Animation name="DEATH" startFrame="15" endFrame="18" delay="3" direction="1" loops="0" nextSequence="DEAD"></Animation>
+		<Animation name="DEAD" startFrame="19" endFrame="19" delay="150" direction="1" loops="0" nextSequence="FADE"></Animation>
+		<Animation name="FADE" startFrame="19" endFrame="19" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="19" endFrame="19" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Plane">
+		<health>75</health>
+		<damage>1</damage>
+		<speed>7</speed>
+		<range>0</range>
+		<loot>250</loot>
+		<points>125000</points>
+		<isAir>1</isAir>
+		<bulletType>2</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>50</bulletSpawnX>
+		<bulletSpawnY>18</bulletSpawnY>
+		<width>164</width>
+		<height>88</height>
+		<frames>7</frames>
+		<xPosition>4</xPosition>
+		<yPosition>2</yPosition>
+		<boundsWidth>152</boundsWidth>
+		<boundsHeight>58</boundsHeight>
+		<image>enemy_plane</image>
+		
+		<Animation name="RUN" startFrame="1" endFrame="3" delay="2" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="4" endFrame="4" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="5" endFrame="5" delay="2" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="6" endFrame="6" delay="2" direction="1" loops="0" nextSequence="SHOOT"></Animation>
+		<Animation name="DEAD" startFrame="7" endFrame="7" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="FADE" startFrame="7" endFrame="7" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="7" endFrame="7" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Ram">
+		<health>45</health>
+		<damage>5</damage>
+		<speed>1</speed>
+		<range>80</range>
+		<loot>40</loot>
+		<points>15000</points>
+		<isAir>0</isAir>
+		<bulletType>0</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>74</bulletSpawnX>
+		<bulletSpawnY>38</bulletSpawnY>
+		<width>129</width>
+		<height>88</height>
+		<frames>17</frames>
+		<xPosition>26</xPosition>
+		<yPosition>0</yPosition>
+		<boundsWidth>52</boundsWidth>
+		<boundsHeight>88</boundsHeight>
+		<image>enemy_ram</image>
+		
+		<Animation name="RUN" startFrame="1" endFrame="6" delay="4" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="IDLE" startFrame="7" endFrame="7" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="7" endFrame="9" delay="4" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="10" endFrame="10" delay="4" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="7" endFrame="7" delay="40" direction="1" loops="0" nextSequence="IDLE"></Animation>
+		<Animation name="DEATH" startFrame="13" endFrame="16" delay="3" direction="1" loops="0" nextSequence="DEAD"></Animation>
+		<Animation name="DEAD" startFrame="17" endFrame="17" delay="150" direction="1" loops="0" nextSequence="FADE"></Animation>
+		<Animation name="FADE" startFrame="17" endFrame="17" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="17" endFrame="17" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Shovel">
+		<health>26</health>
+		<damage>2</damage>
+		<speed>2</speed>
+		<range>100</range>
+		<loot>20</loot>
+		<points>5000</points>
+		<isAir>0</isAir>
+		<bulletType>0</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>100</bulletSpawnX>
+		<bulletSpawnY>18</bulletSpawnY>
+		<width>178</width>
+		<height>108</height>
+		<frames>17</frames>
+		<xPosition>50</xPosition>
+		<yPosition>34</yPosition>
+		<boundsWidth>48</boundsWidth>
+		<boundsHeight>74</boundsHeight>
+		<image>enemy_shovel</image>
+		
+		<Animation name="RUN" startFrame="1" endFrame="6" delay="4" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="IDLE" startFrame="7" endFrame="7" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="7" endFrame="10" delay="3" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="11" endFrame="11" delay="3" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="11" endFrame="11" delay="10" direction="1" loops="0" nextSequence="WAIT2"></Animation>
+		<Animation name="WAIT2" startFrame="7" endFrame="7" delay="20" direction="1" loops="0" nextSequence="IDLE"></Animation>
+		<Animation name="DEATH" startFrame="13" endFrame="16" delay="3" direction="1" loops="0" nextSequence="DEAD"></Animation>
+		<Animation name="DEAD" startFrame="17" endFrame="17" delay="150" direction="1" loops="0" nextSequence="FADE"></Animation>
+		<Animation name="FADE" startFrame="17" endFrame="17" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="17" endFrame="17" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Sniper">
+		<health>26</health>
+		<damage>4</damage>
+		<speed>2</speed>
+		<range>150</range>
+		<loot>30</loot>
+		<points>10000</points>
+		<isAir>0</isAir>
+		<bulletType>2</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>65</bulletSpawnX>
+		<bulletSpawnY>64</bulletSpawnY>
+		<width>142</width>
+		<height>104</height>
+		<frames>17</frames>
+		<xPosition>32</xPosition>
+		<yPosition>28</yPosition>
+		<boundsWidth>38</boundsWidth>
+		<boundsHeight>76</boundsHeight>
+		<image>enemy_sniper</image>
+		
+		<Animation name="RUN" startFrame="1" endFrame="6" delay="5" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="IDLE" startFrame="7" endFrame="7" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="7" endFrame="7" delay="70" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="8" endFrame="8" delay="3" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="9" endFrame="9" delay="3" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="10" endFrame="11" delay="3" direction="1" loops="0" nextSequence="IDLE"></Animation>
+		<Animation name="DEATH" startFrame="13" endFrame="16" delay="3" direction="1" loops="0" nextSequence="DEAD"></Animation>
+		<Animation name="DEAD" startFrame="17" endFrame="17" delay="150" direction="1" loops="0" nextSequence="FADE"></Animation>
+		<Animation name="FADE" startFrame="17" endFrame="17" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="17" endFrame="17" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+	<Enemy name="Tank">
+		<health>250</health>
+		<damage>8</damage>
+		<speed>1</speed>
+		<range>200</range>
+		<loot>500</loot>
+		<points>500000</points>
+		<isAir>0</isAir>
+		<bulletType>4</bulletType>
+		<deathSound>0</deathSound>
+		<bulletSpawnX>25</bulletSpawnX>
+		<bulletSpawnY>107</bulletSpawnY>
+		<width>236</width>
+		<height>134</height>
+		<frames>17</frames>
+		<xPosition>10</xPosition>
+		<yPosition>9</yPosition>
+		<boundsWidth>222</boundsWidth>
+		<boundsHeight>125</boundsHeight>
+		<image>enemy_tank</image>
+		
+		<Animation name="RUN" startFrame="5" endFrame="7" delay="2" direction="1" loops="-1" nextSequence=""></Animation>
+		<Animation name="IDLE" startFrame="5" endFrame="5" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+		<Animation name="SHOOT" startFrame="9" endFrame="9" delay="3" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="10" endFrame="10" delay="3" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="11" endFrame="16" delay="3" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="2" delay="3" direction="1" loops="17" nextSequence="IDLE"></Animation>
+		<Animation name="DEAD" startFrame="17" endFrame="17" delay="150" direction="1" loops="0" nextSequence="FADE"></Animation>
+		<Animation name="FADE" startFrame="17" endFrame="17" delay="20" direction="1" loops="0" nextSequence="FINISHED"></Animation>
+		<Animation name="FINISHED" startFrame="17" endFrame="17" delay="0" direction="1" loops="0" nextSequence=""></Animation>
+	</Enemy>
+</root>

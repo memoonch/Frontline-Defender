@@ -1,0 +1,170 @@
+<root>
+	<Character char="A">
+		<x>0</x>
+		<width>5</width>
+	</Character>
+	<Character char="B">
+		<x>5</x>
+		<width>5</width>
+	</Character>
+	<Character char="C">
+		<x>10</x>
+		<width>4</width>
+	</Character>
+	<Character char="D">
+		<x>14</x>
+		<width>5</width>
+	</Character>
+	<Character char="E">
+		<x>19</x>
+		<width>4</width>
+	</Character>
+	<Character char="F">
+		<x>23</x>
+		<width>4</width>
+	</Character>
+	<Character char="G">
+		<x>27</x>
+		<width>4</width>
+	</Character>
+	<Character char="H">
+		<x>31</x>
+		<width>5</width>
+	</Character>
+	<Character char="I">
+		<x>36</x>
+		<width>3</width>
+	</Character>
+	<Character char="J">
+		<x>39</x>
+		<width>5</width>
+	</Character>
+	<Character char="K">
+		<x>44</x>
+		<width>5</width>
+	</Character>
+	<Character char="L">
+		<x>49</x>
+		<width>4</width>
+	</Character>
+	<Character char="M">
+		<x>53</x>
+		<width>5</width>
+	</Character>
+	<Character char="N">
+		<x>58</x>
+		<width>5</width>
+	</Character>
+	<Character char="O">
+		<x>63</x>
+		<width>5</width>
+	</Character>
+	<Character char="P">
+		<x>68</x>
+		<width>5</width>
+	</Character>
+	<Character char="Q">
+		<x>73</x>
+		<width>5</width>
+	</Character>
+	<Character char="R">
+		<x>78</x>
+		<width>5</width>
+	</Character>
+	<Character char="S">
+		<x>83</x>
+		<width>6</width>
+	</Character>
+	<Character char="T">
+		<x>89</x>
+		<width>5</width>
+	</Character>
+	<Character char="U">
+		<x>94</x>
+		<width>5</width>
+	</Character>
+	<Character char="V">
+		<x>99</x>
+		<width>5</width>
+	</Character>
+	<Character char="W">
+		<x>104</x>
+		<width>9</width>
+	</Character>
+	<Character char="X">
+		<x>113</x>
+		<width>5</width>
+	</Character>
+	<Character char="Y">
+		<x>118</x>
+		<width>5</width>
+	</Character>
+	<Character char="Z">
+		<x>123</x>
+		<width>5</width>
+	</Character>
+	<Character char="0">
+		<x>128</x>
+		<width>5</width>
+	</Character>
+	<Character char="1">
+		<x>133</x>
+		<width>3</width>
+	</Character>
+	<Character char="2">
+		<x>136</x>
+		<width>5</width>
+	</Character>
+	<Character char="3">
+		<x>141</x>
+		<width>4</width>
+	</Character>
+	<Character char="4">
+		<x>145</x>
+		<width>4</width>
+	</Character>
+	<Character char="5">
+		<x>149</x>
+		<width>4</width>
+	</Character>
+	<Character char="6">
+		<x>153</x>
+		<width>5</width>
+	</Character>
+	<Character char="7">
+		<x>158</x>
+		<width>5</width>
+	</Character>
+	<Character char="8">
+		<x>163</x>
+		<width>5</width>
+	</Character>
+	<Character char="9">
+		<x>168</x>
+		<width>5</width>
+	</Character>
+	<Character char=">">
+		<x>173</x>
+		<width>3</width>
+	</Character>
+	<Character char=":">
+		<x>176</x>
+		<width>6</width>
+	</Character>
+	<Character char="/">
+		<x>182</x>
+		<width>6</width>
+	</Character>
+	<Character char="x">
+		<x>188</x>
+		<width>5</width>
+	</Character>
+	<Character char=".">
+		<x>193</x>
+		<width>2</width>
+	</Character>
+	<Character char="-">
+		<x>195</x>
+		<width>2</width>
+	</Character>
+</root>

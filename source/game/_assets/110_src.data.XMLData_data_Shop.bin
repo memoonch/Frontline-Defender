@@ -1,0 +1,115 @@
+<root>
+	<Weapon name="PISTOL">
+		<damage level_01="3" level_02="4" level_03="6"></damage>
+		<accuracy level_01="10" level_02="8" level_03="5"></accuracy>
+		<rateOfFire level_01="7" level_02="6" level_03="4"></rateOfFire>
+		<clip level_01="12" level_02="18" level_03="26"></clip>
+		<ammo level_01="-1" level_02="-1" level_03="-1"></ammo>
+		<cost level_01="0" level_02="50" level_03="150"></cost>
+	</Weapon>
+	<Weapon name="SMG">
+		<damage level_01="2" level_02="3" level_03="5"></damage>
+		<accuracy level_01="4" level_02="3" level_03="1"></accuracy>
+		<rateOfFire level_01="4" level_02="3" level_03="2"></rateOfFire>
+		<clip level_01="30" level_02="40" level_03="50"></clip>
+		<ammo level_01="90" level_02="120" level_03="150"></ammo>
+		<cost level_01="90" level_02="100" level_03="200"></cost>
+	</Weapon>
+	<Weapon name="SHOTGUN">
+		<damage level_01="2" level_02="3" level_03="4"></damage>
+		<accuracy level_01="26" level_02="22" level_03="18"></accuracy>
+		<rateOfFire level_01="30" level_02="25" level_03="20"></rateOfFire>
+		<clip level_01="8" level_02="12" level_03="16"></clip>
+		<ammo level_01="32" level_02="48" level_03="64"></ammo>
+		<cost level_01="150" level_02="200" level_03="250"></cost>
+	</Weapon>
+	<Weapon name="ASSAULT RIFLE">
+		<damage level_01="5" level_02="6" level_03="8"></damage>
+		<accuracy level_01="6" level_02="5" level_03="3"></accuracy>
+		<rateOfFire level_01="5" level_02="4" level_03="3"></rateOfFire>
+		<clip level_01="25" level_02="30" level_03="40"></clip>
+		<ammo level_01="75" level_02="90" level_03="120"></ammo>
+		<cost level_01="200" level_02="300" level_03="400"></cost>
+	</Weapon>
+	<Weapon name="SNIPER">
+		<damage level_01="20" level_02="22" level_03="25"></damage>
+		<accuracy level_01="2" level_02="1" level_03="0"></accuracy>
+		<rateOfFire level_01="50" level_02="40" level_03="24"></rateOfFire>
+		<clip level_01="4" level_02="6" level_03="8"></clip>
+		<ammo level_01="12" level_02="18" level_03="24"></ammo>
+		<cost level_01="225" level_02="300" level_03="400"></cost>
+	</Weapon>
+	<Weapon name="RPG LAUNCHER">
+		<damage level_01="30" level_02="32" level_03="35"></damage>
+		<accuracy level_01="20" level_02="18" level_03="12"></accuracy>
+		<rateOfFire level_01="60" level_02="50" level_03="35"></rateOfFire>
+		<clip level_01="2" level_02="3" level_03="5"></clip>
+		<ammo level_01="4" level_02="6" level_03="10"></ammo>
+		<cost level_01="400" level_02="500" level_03="600"></cost>
+	</Weapon>
+	<Weapon name="RAILGUN">
+		<damage level_01="28" level_02="30" level_03="32"></damage>
+		<accuracy level_01="2" level_02="1" level_03="0"></accuracy>
+		<rateOfFire level_01="40" level_02="30" level_03="18"></rateOfFire>
+		<clip level_01="3" level_02="5" level_03="7"></clip>
+		<ammo level_01="6" level_02="10" level_03="14"></ammo>
+		<cost level_01="550" level_02="500" level_03="650"></cost>
+	</Weapon>
+	<Weapon name="CHAINGUN">
+		<damage level_01="10" level_02="12" level_03="15"></damage>
+		<accuracy level_01="25" level_02="23" level_03="18"></accuracy>
+		<rateOfFire level_01="2" level_02="1" level_03="0"></rateOfFire>
+		<clip level_01="50" level_02="75" level_03="160"></clip>
+		<ammo level_01="100" level_02="150" level_03="320"></ammo>
+		<cost level_01="700" level_02="1000" level_03="2000"></cost>
+	</Weapon>
+	<Weapon name="PHOTON CANNON">
+		<damage level_01="100" level_02="150" level_03="200"></damage>
+		<accuracy level_01="15" level_02="12" level_03="8"></accuracy>
+		<rateOfFire level_01="25" level_02="20" level_03="10"></rateOfFire>
+		<clip level_01="2" level_02="3" level_03="5"></clip>
+		<ammo level_01="4" level_02="6" level_03="10"></ammo>
+		<cost level_01="1500" level_02="2000" level_03="3000"></cost>
+	</Weapon>
+	<Weapon name="GRENADE">
+		<damage level_01="200"></damage>
+		<ammo level_01="3"></ammo>
+		<cost level_01="250"></cost>
+	</Weapon>
+	<Weapon name="PAYLOAD">
+		<damage level_01="400"></damage>
+		<ammo level_01="1"></ammo>
+		<cost level_01="3000"></cost>
+	</Weapon>
+	
+	<Troop name="Quick Draw">
+		<damage>30</damage>
+		<rateOfFire>1.50</rateOfFire>
+		<cost>150</cost>
+	</Troop>
+	<Troop name="Gung-Ho">
+		<damage>50</damage>
+		<rateOfFire>0.75</rateOfFire>
+		<cost>350</cost>
+	</Troop>
+	<Troop name="Buckshot">
+		<damage>20x3</damage>
+		<rateOfFire>1.80</rateOfFire>
+		<cost>250</cost>
+	</Troop>
+	<Troop name="Eagle Eye">
+		<damage>150</damage>
+		<rateOfFire>0.25</rateOfFire>
+		<cost>650</cost>
+	</Troop>
+	<Troop name="Heavy Arms">
+		<damage>250</damage>
+		<rateOfFire>0.20</rateOfFire>
+		<cost>750</cost>
+	</Troop>
+	<Troop name="B. B. Que">
+		<damage>150</damage>
+		<rateOfFire>0.30</rateOfFire>
+		<cost>500</cost>
+	</Troop>
+</root>

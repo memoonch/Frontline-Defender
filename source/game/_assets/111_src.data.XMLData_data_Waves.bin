@@ -1,0 +1,29 @@
+<root>
+	<Wave dagger="8" shovel="0" ram="0" bomber="0" pistol="0" sniper="0" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="8" shovel="3" ram="0" bomber="0" pistol="0" sniper="0" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="10" shovel="4" ram="0" bomber="0" pistol="0" sniper="0" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="8" shovel="3" ram="0" bomber="0" pistol="5" sniper="0" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="10" shovel="2" ram="0" bomber="0" pistol="6" sniper="0" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="10" shovel="6" ram="0" bomber="0" pistol="4" sniper="0" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="10" shovel="6" ram="4" bomber="0" pistol="6" sniper="0" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="10" shovel="6" ram="2" bomber="0" pistol="8" sniper="4" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="6" shovel="6" ram="10" bomber="0" pistol="10" sniper="0" humvee="2" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="6" shovel="0" ram="12" bomber="0" pistol="14" sniper="6" humvee="0" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="0" shovel="12" ram="8" bomber="2" pistol="12" sniper="4" humvee="0" plane="3" helicopter="0" tank="0"></Wave>
+	<Wave dagger="4" shovel="10" ram="8" bomber="2" pistol="0" sniper="12" humvee="6" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="12" shovel="0" ram="6" bomber="4" pistol="10" sniper="8" humvee="0" plane="0" helicopter="2" tank="0"></Wave>
+	<Wave dagger="0" shovel="4" ram="12" bomber="3" pistol="12" sniper="6" humvee="4" plane="0" helicopter="0" tank="0"></Wave>
+	<Wave dagger="6" shovel="8" ram="0" bomber="12" pistol="0" sniper="8" humvee="3" plane="3" helicopter="0" tank="0"></Wave>
+	<Wave dagger="6" shovel="4" ram="14" bomber="0" pistol="8" sniper="0" humvee="2" plane="5" helicopter="0" tank="1"></Wave>
+	<Wave dagger="2" shovel="0" ram="0" bomber="14" pistol="8" sniper="10" humvee="2" plane="3" helicopter="2" tank="0"></Wave>
+	<Wave dagger="0" shovel="10" ram="10" bomber="8" pistol="0" sniper="6" humvee="0" plane="2" helicopter="4" tank="1"></Wave>
+	<Wave dagger="12" shovel="6" ram="8" bomber="2" pistol="0" sniper="8" humvee="2" plane="2" helicopter="0" tank="3"></Wave>
+	<Wave dagger="0" shovel="0" ram="0" bomber="10" pistol="14" sniper="8" humvee="6" plane="0" helicopter="4" tank="0"></Wave>
+	<Wave dagger="0" shovel="6" ram="14" bomber="8" pistol="4" sniper="0" humvee="2" plane="6" helicopter="2" tank="0"></Wave>
+	<Wave dagger="5" shovel="5" ram="10" bomber="0" pistol="10" sniper="0" humvee="3" plane="4" helicopter="0" tank="3"></Wave>
+	<Wave dagger="4" shovel="10" ram="4" bomber="8" pistol="4" sniper="6" humvee="5" plane="0" helicopter="4" tank="0"></Wave>
+	<Wave dagger="0" shovel="12" ram="0" bomber="6" pistol="4" sniper="10" humvee="0" plane="6" helicopter="0" tank="2"></Wave>
+	<Wave dagger="8" shovel="2" ram="8" bomber="10" pistol="0" sniper="8" humvee="0" plane="2" helicopter="0" tank="4"></Wave>
+	<Wave dagger="4" shovel="0" ram="10" bomber="6" pistol="10" sniper="0" humvee="6" plane="0" helicopter="4" tank="0"></Wave>
+	<Wave dagger="6" shovel="14" ram="0" bomber="10" pistol="0" sniper="2" humvee="4" plane="0" helicopter="2" tank="3"></Wave>
+</root>

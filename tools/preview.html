@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frontline Defender</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #17191d; }
+  body { display: grid; place-items: center; }
+  #game { width: min(960px, 100vw, 177.777778vh); aspect-ratio: 16 / 9; }
+  #game.viewport-fill { position: fixed; inset: 0; width: 100vw; height: 100vh; }
+  ruffle-player { display: block; width: 100%; height: 100%; }
+  #status { position: absolute; color: #eee; font: 16px Arial; }
+</style>
+<script src="https://unpkg.com/@ruffle-rs/ruffle/ruffle.js"></script>
+</head>
+<body>
+<div id="status" role="status">Loading Frontline Defender…</div>
+<main id="game" aria-label="Frontline Defender"></main>
+<script>
+  const game = document.getElementById('game');
+  // F11 is handled by the browser. Detect its viewport change without
+  // intercepting the game's keyboard controls or recreating the player.
+  function resize() {
+    const f11 = Math.abs(window.innerHeight - screen.height) <= 2
+      && Math.abs(window.innerWidth - screen.width) <= 2;
+    game.classList.toggle('viewport-fill', f11 || !!document.fullscreenElement);
+  }
+  window.addEventListener('resize', resize);
+  document.addEventListener('fullscreenchange', resize);
+  // Embedded browsers may deliver F11 to the page rather than handling it.
+  // Use native document fullscreen there; regular browser F11 still works.
+  window.addEventListener('keydown', event => {
+    if (event.key !== 'F11' || event.repeat) return;
+    event.preventDefault();
+    const change = document.fullscreenElement
+      ? document.exitFullscreen()
+      : document.documentElement.requestFullscreen();
+    change.catch(error => console.warn('Use the browser fullscreen command.', error));
+  }, true);
+  resize();
+  window.addEventListener('load', async () => {
+    const status = document.getElementById('status');
+    try {
+      const player = window.RufflePlayer.newest().createPlayer();
+      game.appendChild(player);
+      await player.ruffle().load({url:'/game.swf', autoplay:'on', unmuteOverlay:'visible', scale:'noScale'});
+      status.remove();
+    } catch (error) {
+      status.textContent = 'Game could not load. Refresh to try again.';
+      console.error(error);
+    }
+  });
+</script>
+</body>
+</html>

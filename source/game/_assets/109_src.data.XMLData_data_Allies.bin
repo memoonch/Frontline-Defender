@@ -1,0 +1,115 @@
+<root>
+	<Ally name="Assault Rifle">
+		<damage>5</damage>
+		<range>500</range>
+		<bulletType>1</bulletType>
+		<bulletSpawnX>94</bulletSpawnX>
+		<bulletSpawnY>40</bulletSpawnY>
+		<width>128</width>
+		<height>75</height>
+		<frames>8</frames>
+		<image>ally_assault_rifle</image>
+		
+		<Animation name="IDLE" startFrame="1" endFrame="4" delay="5" direction="1" loops="0" nextSequence="IDLE2"></Animation>
+		<Animation name="IDLE2" startFrame="1" endFrame="1" delay="5" direction="1" loops="5" nextSequence="IDLE"></Animation>
+		<Animation name="SHOOT" startFrame="1" endFrame="1" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="5" endFrame="5" delay="2" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="6" endFrame="6" delay="2" direction="1" loops="0" nextSequence="FIRE2"></Animation>
+		<Animation name="FIRE2" startFrame="7" endFrame="7" delay="2" direction="1" loops="0" nextSequence="SHOOT3"></Animation>
+		<Animation name="SHOOT3" startFrame="8" endFrame="8" delay="2" direction="1" loops="0" nextSequence="FIRE3"></Animation>
+		<Animation name="FIRE3" startFrame="5" endFrame="5" delay="2" direction="1" loops="0" nextSequence="SHOOT4"></Animation>
+		<Animation name="SHOOT4" startFrame="6" endFrame="6" delay="2" direction="1" loops="0" nextSequence="FIRE4"></Animation>
+		<Animation name="FIRE4" startFrame="7" endFrame="7" delay="2" direction="1" loops="0" nextSequence="SHOOT5"></Animation>
+		<Animation name="SHOOT5" startFrame="8" endFrame="8" delay="2" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="1" delay="30" direction="1" loops="0" nextSequence="IDLE"></Animation>
+	</Ally>
+	<Ally name="Flamethrower">
+		<damage>1</damage>
+		<range>160</range>
+		<bulletType>7</bulletType>
+		<bulletSpawnX>78</bulletSpawnX>
+		<bulletSpawnY>45</bulletSpawnY>
+		<width>78</width>
+		<height>79</height>
+		<frames>8</frames>
+		<image>ally_flamethrower</image>
+		
+		<Animation name="IDLE" startFrame="1" endFrame="4" delay="5" direction="1" loops="0" nextSequence="IDLE2"></Animation>
+		<Animation name="IDLE2" startFrame="1" endFrame="1" delay="5" direction="1" loops="5" nextSequence="IDLE"></Animation>
+		<Animation name="SHOOT" startFrame="1" endFrame="1" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="5" endFrame="8" delay="2" direction="1" loops="4" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="1" delay="100" direction="1" loops="0" nextSequence="IDLE"></Animation>
+	</Ally>
+	<Ally name="Pistol">
+		<damage>3</damage>
+		<range>400</range>
+		<bulletType>1</bulletType>
+		<bulletSpawnX>77</bulletSpawnX>
+		<bulletSpawnY>56</bulletSpawnY>
+		<width>103</width>
+		<height>75</height>
+		<frames>7</frames>
+		<image>ally_pistol</image>
+		
+		<Animation name="IDLE" startFrame="1" endFrame="4" delay="5" direction="1" loops="0" nextSequence="IDLE2"></Animation>
+		<Animation name="IDLE2" startFrame="1" endFrame="1" delay="5" direction="1" loops="5" nextSequence="IDLE"></Animation>
+		<Animation name="SHOOT" startFrame="1" endFrame="1" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="5" endFrame="5" delay="2" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="6" endFrame="7" delay="2" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="1" delay="20" direction="1" loops="0" nextSequence="IDLE"></Animation>
+	</Ally>
+	<Ally name="Rocket Launcher">
+		<damage>25</damage>
+		<range>600</range>
+		<bulletType>5</bulletType>
+		<bulletSpawnX>95</bulletSpawnX>
+		<bulletSpawnY>63</bulletSpawnY>
+		<width>158</width>
+		<height>90</height>
+		<frames>12</frames>
+		<image>ally_rocket_launcher</image>
+		
+		<Animation name="IDLE" startFrame="1" endFrame="4" delay="5" direction="1" loops="0" nextSequence="IDLE2"></Animation>
+		<Animation name="IDLE2" startFrame="1" endFrame="1" delay="5" direction="1" loops="5" nextSequence="IDLE"></Animation>
+		<Animation name="SHOOT" startFrame="1" endFrame="1" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="5" endFrame="5" delay="2" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="6" endFrame="12" delay="2" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="1" delay="150" direction="1" loops="0" nextSequence="IDLE"></Animation>
+	</Ally>
+	<Ally name="Shotgun">
+		<damage>2</damage>
+		<range>300</range>
+		<bulletType>3</bulletType>
+		<bulletSpawnX>69</bulletSpawnX>
+		<bulletSpawnY>44</bulletSpawnY>
+		<width>118</width>
+		<height>74</height>
+		<frames>7</frames>
+		<image>ally_shotgun</image>
+		
+		<Animation name="IDLE" startFrame="1" endFrame="4" delay="5" direction="1" loops="0" nextSequence="IDLE2"></Animation>
+		<Animation name="IDLE2" startFrame="1" endFrame="1" delay="5" direction="1" loops="5" nextSequence="IDLE"></Animation>
+		<Animation name="SHOOT" startFrame="1" endFrame="1" delay="3" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="5" endFrame="5" delay="3" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="6" endFrame="7" delay="3" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="1" delay="50" direction="1" loops="0" nextSequence="IDLE"></Animation>
+	</Ally>
+	<Ally name="Sniper">
+		<damage>15</damage>
+		<range>100</range>
+		<bulletType>2</bulletType>
+		<bulletSpawnX>77</bulletSpawnX>
+		<bulletSpawnY>35</bulletSpawnY>
+		<width>103</width>
+		<height>51</height>
+		<frames>7</frames>
+		<image>ally_sniper</image>
+		
+		<Animation name="IDLE" startFrame="1" endFrame="4" delay="5" direction="1" loops="0" nextSequence="IDLE2"></Animation>
+		<Animation name="IDLE2" startFrame="1" endFrame="1" delay="5" direction="1" loops="5" nextSequence="IDLE"></Animation>
+		<Animation name="SHOOT" startFrame="1" endFrame="1" delay="2" direction="1" loops="0" nextSequence="FIRE"></Animation>
+		<Animation name="FIRE" startFrame="5" endFrame="5" delay="2" direction="1" loops="0" nextSequence="SHOOT2"></Animation>
+		<Animation name="SHOOT2" startFrame="6" endFrame="7" delay="2" direction="1" loops="0" nextSequence="WAIT"></Animation>
+		<Animation name="WAIT" startFrame="1" endFrame="1" delay="120" direction="1" loops="0" nextSequence="IDLE"></Animation>
+	</Ally>
+</root>
