@@ -1,0 +1,4 @@
+from pathlib import Path
+import shutil
+p=Path('source/game/src/components/gui/GrenadeDisplay.as');s=p.read_text().replace('panel(58,36)','panel(92,36)').replace('shopIcon(9,6,4);shopIcon(10,6,21);','shopIcon(9,5,4);shopIcon(10,49,4);').replace('Math.min(27/bounds.width,15/bounds.height)','Math.min(36/bounds.width,27/bounds.height)').replace('(18-image.width)/2','(24-image.width)/2').replace('(14-image.height)/2','(28-image.height)/2').replace('28,5,0.75','31,12,0.8').replace('28,21,0.75','76,12,0.8');p.write_text(s);shutil.copy2(p,'tools/hud-patch/src/components/gui/GrenadeDisplay.as')
+p=Path('source/game/src/components/GUI.as');s=p.read_text().replace('this._weaponDisplay.x = 388','this._weaponDisplay.x = 354').replace('this._grenadeDisplay.x = 570','this._grenadeDisplay.x = 536');p.write_text(s);shutil.copy2(p,'tools/hud-patch/src/components/GUI.as')

@@ -43,11 +43,11 @@ package src.components
          this._healthDisplay.y = 434;
          this.addChild(this._healthDisplay);
          this._weaponDisplay = new WeaponDisplay();
-         this._weaponDisplay.x = 388;
+         this._weaponDisplay.x = 354;
          this._weaponDisplay.y = 434;
          this.addChild(this._weaponDisplay);
          this._grenadeDisplay = new GrenadeDisplay();
-         this._grenadeDisplay.x = 570;
+         this._grenadeDisplay.x = 536;
          this._grenadeDisplay.y = 434;
          this.addChild(this._grenadeDisplay);
          this._scoreDisplay = new ScoreDisplay();
