@@ -401,6 +401,7 @@ package src
       
       private function keyPressed(param1:KeyboardEvent) : void
       {
+         if(param1.keyCode==83){if(this._game!=null)this._game.openShopShortcut();return;}
          if(Controls.getKeyInUse(param1.keyCode) && !Controls.getKeyState(null,param1.keyCode))
          {
             Controls.keyStateChange(null,param1.keyCode);

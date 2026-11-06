@@ -2383,6 +2383,13 @@ package src.components
          this._crosshair.stopShooting();
       }
       
+      public function openShopShortcut():void
+      {
+         if(this._paused || this._isShopping || this._health<=0 || this._gameoverMenu.visible)return;
+         this._isShopping=true;
+         this.OpenShop();
+      }
+
       private function OpenShop() : void
       {
          this._shopMenu.Update(this._isVictory,this._wave + 1,this._scoreEarned,this._moneyEarned,this._soldiersKilled,this._vehiclesKilled,this._grenades,this._bombs,this._health,this._shopMenu.wallLevel * 50 + 100,this._score,this._money);

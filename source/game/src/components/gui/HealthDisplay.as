@@ -23,10 +23,10 @@ package src.components.gui {
    fill=new Sprite();fill.x=44;fill.y=16;addChild(fill);draw();
   }
   private function draw():void {
-   fill.graphics.clear();var ratio:Number=Math.max(0,Math.min(1,health/Math.max(1,maximum)));
+   fill.graphics.clear();fill.graphics.lineStyle(1,0x899680);fill.graphics.drawRect(-2.5,-2.5,143,17);fill.graphics.lineStyle();var ratio:Number=Math.max(0,Math.min(1,health/Math.max(1,maximum)));
    for(var i:int=0;i<10;i++){
-    var x:int=i*14;fill.graphics.beginFill(0x48564a);fill.graphics.drawRect(x,0,12,12);fill.graphics.endFill();
-    fill.graphics.beginFill(0x101914);fill.graphics.drawRect(x+1,1,10,10);fill.graphics.endFill();
+    var x:int=i*14;fill.graphics.beginFill(0x829078);fill.graphics.drawRect(x,0,12,12);fill.graphics.endFill();
+    fill.graphics.beginFill(0x26312a);fill.graphics.drawRect(x+1,1,10,10);fill.graphics.endFill();
     var part:Number=Math.max(0,Math.min(1,ratio*10-i));var width:int=Math.ceil(part*10);
     if(width>0){var color:uint=ratio<=0.25?0xe64038:0x80c735;
      fill.graphics.beginFill(color);fill.graphics.drawRect(x+1,1,width,10);fill.graphics.endFill();
@@ -38,6 +38,7 @@ package src.components.gui {
   public function updateTotalHealth(value:int):void {maximum=value;draw();}
  }
 }
+
 
 
 

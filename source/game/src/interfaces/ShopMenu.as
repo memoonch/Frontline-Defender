@@ -6,7 +6,7 @@ package src.interfaces
    import com.hcLibrary.events.GameEvent;
    import com.hcLibrary.managers.FontManager;
    import com.hcLibrary.managers.ImageManager;
-   import flash.display.Sprite;
+   import flash.display.Sprite; import flash.display.Bitmap; import flash.display.BitmapData; import flash.geom.Matrix;import flash.geom.Point;
    import flash.events.Event;
    import src.Main;
    import src.components.gui.Options;
@@ -168,6 +168,7 @@ package src.interfaces
       private var _troopSelection:TroopSelection;
       
       private var _repairBar:RepairBar;
+      private var _repairHealthLabel:Sprite; private var _repairLabelValue:String="";
       
       private var _wallLevel:int;
       
@@ -205,12 +206,13 @@ package src.interfaces
       
       public function ShopMenu()
       {
-         super(this._imageManager.getImage("shop_background"));
+         super(shopBackground());
          this.InitializeButtons();
          this.InitializeArsenal();
          this.InitializeTroops();
          this.InitializeWall();
          this.InitializeStats();
+         _background.x=8; _background.y=8; _background.scaleX=624/509; _background.scaleY=464/441;
          this._options = new Options();
          this.addChild(this._options);
          this._money = 0;
@@ -247,7 +249,7 @@ package src.interfaces
       
       private function InitializeButtons() : void
       {
-         this._playButton = new CustomButton(this._imageManager.getImage("shop_play_button"),147,46,2);
+         this._playButton = new CustomButton(shopButton(147,46,2,"NEXT WAVE"),147,46,2);
          this._playButton.idleState = 1;
          this._playButton.overState = 2;
          this._playButton.x = _background.width - this._playButton.width - 10;
@@ -257,7 +259,7 @@ package src.interfaces
       
       private function InitializeArsenal() : void
       {
-         this._pistolButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._pistolButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._pistolButton.idleState = 1;
          this._pistolButton.overState = 2;
          this._pistolButton.disabledState = 3;
@@ -265,7 +267,7 @@ package src.interfaces
          this._pistolButton.x = 18;
          this._pistolButton.y = 92;
          _background.addChild(this._pistolButton);
-         this._smgButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._smgButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._smgButton.idleState = 1;
          this._smgButton.overState = 2;
          this._smgButton.disabledState = 3;
@@ -273,7 +275,7 @@ package src.interfaces
          this._smgButton.x = this._pistolButton.x;
          this._smgButton.y = this._pistolButton.y + this._pistolButton.height + 1;
          _background.addChild(this._smgButton);
-         this._shotgunButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._shotgunButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._shotgunButton.idleState = 1;
          this._shotgunButton.overState = 2;
          this._shotgunButton.disabledState = 3;
@@ -281,7 +283,7 @@ package src.interfaces
          this._shotgunButton.x = this._smgButton.x;
          this._shotgunButton.y = this._smgButton.y + this._smgButton.height + 1;
          _background.addChild(this._shotgunButton);
-         this._assaultRifleButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._assaultRifleButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._assaultRifleButton.idleState = 1;
          this._assaultRifleButton.overState = 2;
          this._assaultRifleButton.disabledState = 3;
@@ -289,7 +291,7 @@ package src.interfaces
          this._assaultRifleButton.x = this._shotgunButton.x;
          this._assaultRifleButton.y = this._shotgunButton.y + this._shotgunButton.height + 1;
          _background.addChild(this._assaultRifleButton);
-         this._sniperButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._sniperButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._sniperButton.idleState = 1;
          this._sniperButton.overState = 2;
          this._sniperButton.disabledState = 3;
@@ -297,7 +299,7 @@ package src.interfaces
          this._sniperButton.x = this._assaultRifleButton.x;
          this._sniperButton.y = this._assaultRifleButton.y + this._assaultRifleButton.height + 1;
          _background.addChild(this._sniperButton);
-         this._rpgButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._rpgButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._rpgButton.idleState = 1;
          this._rpgButton.overState = 2;
          this._rpgButton.disabledState = 3;
@@ -305,7 +307,7 @@ package src.interfaces
          this._rpgButton.x = this._sniperButton.x;
          this._rpgButton.y = this._sniperButton.y + this._sniperButton.height + 1;
          _background.addChild(this._rpgButton);
-         this._railgunButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._railgunButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._railgunButton.idleState = 1;
          this._railgunButton.overState = 2;
          this._railgunButton.disabledState = 3;
@@ -313,7 +315,7 @@ package src.interfaces
          this._railgunButton.x = this._rpgButton.x;
          this._railgunButton.y = this._rpgButton.y + this._rpgButton.height + 1;
          _background.addChild(this._railgunButton);
-         this._chaingunButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._chaingunButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._chaingunButton.idleState = 1;
          this._chaingunButton.overState = 2;
          this._chaingunButton.disabledState = 3;
@@ -321,7 +323,7 @@ package src.interfaces
          this._chaingunButton.x = this._railgunButton.x;
          this._chaingunButton.y = this._railgunButton.y + this._railgunButton.height + 1;
          _background.addChild(this._chaingunButton);
-         this._photonCannonButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._photonCannonButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._photonCannonButton.idleState = 1;
          this._photonCannonButton.overState = 2;
          this._photonCannonButton.disabledState = 3;
@@ -329,7 +331,7 @@ package src.interfaces
          this._photonCannonButton.x = this._chaingunButton.x;
          this._photonCannonButton.y = this._chaingunButton.y + this._chaingunButton.height + 1;
          _background.addChild(this._photonCannonButton);
-         this._grenadeButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._grenadeButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._grenadeButton.idleState = 1;
          this._grenadeButton.overState = 2;
          this._grenadeButton.disabledState = 3;
@@ -337,7 +339,7 @@ package src.interfaces
          this._grenadeButton.x = this._photonCannonButton.x;
          this._grenadeButton.y = this._photonCannonButton.y + this._photonCannonButton.height + 1;
          _background.addChild(this._grenadeButton);
-         this._payloadButton = new CustomButton(this._imageManager.getImage("shop_arsenal_arrow_button"),102,16,3);
+         this._payloadButton = new CustomButton(shopButton(102,16,3,""),102,16,3);
          this._payloadButton.idleState = 1;
          this._payloadButton.overState = 2;
          this._payloadButton.disabledState = 3;
@@ -345,7 +347,7 @@ package src.interfaces
          this._payloadButton.x = this._grenadeButton.x;
          this._payloadButton.y = this._grenadeButton.y + this._grenadeButton.height + 1;
          _background.addChild(this._payloadButton);
-         this._arsenalUpgradeButton = new CustomButton(this._imageManager.getImage("shop_upgrade_button"),114,23,3);
+         this._arsenalUpgradeButton = new CustomButton(shopButton(114,23,3,"UPGRADE"),114,23,3);
          this._arsenalUpgradeButton.idleState = 2;
          this._arsenalUpgradeButton.overState = 3;
          this._arsenalUpgradeButton.disabledState = 3;
@@ -353,7 +355,7 @@ package src.interfaces
          this._arsenalUpgradeButton.y = 230;
          this._arsenalUpgradeButton.visible = false;
          _background.addChild(this._arsenalUpgradeButton);
-         this._arsenalBuyButton = new CustomButton(this._imageManager.getImage("shop_buy_button"),42,18,3);
+         this._arsenalBuyButton = new CustomButton(shopButton(42,18,3,"BUY"),42,18,3);
          this._arsenalBuyButton.idleState = 2;
          this._arsenalBuyButton.overState = 3;
          this._arsenalBuyButton.disabledState = 1;
@@ -379,15 +381,16 @@ package src.interfaces
          _background.addChild(this._weaponIcon);
          this._classified = new Sprite();
          this._classified.addChild(this._imageManager.getImage("shop_classified"));
-         this._classified.x = 127;
-         this._classified.y = 75;
+         this._classified.scaleX=this._classified.scaleY=0.4;
+         this._classified.x = 153;
+         this._classified.y = 62;
          _background.addChild(this._classified);
       }
       
       private function InitializeTroops() : void
       {
          var _loc2_:AnimatedSprite = null;
-         this._quickDrawButton = new CustomButton(this._imageManager.getImage("shop_troops_arrow_button"),83,16,3);
+         this._quickDrawButton = new CustomButton(shopButton(83,16,3,""),83,16,3);
          this._quickDrawButton.idleState = 1;
          this._quickDrawButton.overState = 2;
          this._quickDrawButton.disabledState = 3;
@@ -395,7 +398,7 @@ package src.interfaces
          this._quickDrawButton.x = 258;
          this._quickDrawButton.y = 89;
          _background.addChild(this._quickDrawButton);
-         this._buckshotButton = new CustomButton(this._imageManager.getImage("shop_troops_arrow_button"),83,16,3);
+         this._buckshotButton = new CustomButton(shopButton(83,16,3,""),83,16,3);
          this._buckshotButton.idleState = 1;
          this._buckshotButton.overState = 2;
          this._buckshotButton.disabledState = 3;
@@ -403,7 +406,7 @@ package src.interfaces
          this._buckshotButton.x = this._quickDrawButton.x;
          this._buckshotButton.y = this._quickDrawButton.y + this._quickDrawButton.height + 1;
          _background.addChild(this._buckshotButton);
-         this._gungHoButton = new CustomButton(this._imageManager.getImage("shop_troops_arrow_button"),83,16,3);
+         this._gungHoButton = new CustomButton(shopButton(83,16,3,""),83,16,3);
          this._gungHoButton.idleState = 1;
          this._gungHoButton.overState = 2;
          this._gungHoButton.disabledState = 3;
@@ -411,7 +414,7 @@ package src.interfaces
          this._gungHoButton.x = this._buckshotButton.x;
          this._gungHoButton.y = this._buckshotButton.y + this._buckshotButton.height + 1;
          _background.addChild(this._gungHoButton);
-         this._bbqueButton = new CustomButton(this._imageManager.getImage("shop_troops_arrow_button"),83,16,3);
+         this._bbqueButton = new CustomButton(shopButton(83,16,3,""),83,16,3);
          this._bbqueButton.idleState = 1;
          this._bbqueButton.overState = 2;
          this._bbqueButton.disabledState = 3;
@@ -419,7 +422,7 @@ package src.interfaces
          this._bbqueButton.x = this._gungHoButton.x;
          this._bbqueButton.y = this._gungHoButton.y + this._gungHoButton.height + 1;
          _background.addChild(this._bbqueButton);
-         this._eagleEyeButton = new CustomButton(this._imageManager.getImage("shop_troops_arrow_button"),83,16,3);
+         this._eagleEyeButton = new CustomButton(shopButton(83,16,3,""),83,16,3);
          this._eagleEyeButton.idleState = 1;
          this._eagleEyeButton.overState = 2;
          this._eagleEyeButton.disabledState = 3;
@@ -427,7 +430,7 @@ package src.interfaces
          this._eagleEyeButton.x = this._bbqueButton.x;
          this._eagleEyeButton.y = this._bbqueButton.y + this._bbqueButton.height + 1;
          _background.addChild(this._eagleEyeButton);
-         this._heavyArmsButton = new CustomButton(this._imageManager.getImage("shop_troops_arrow_button"),83,16,3);
+         this._heavyArmsButton = new CustomButton(shopButton(83,16,3,""),83,16,3);
          this._heavyArmsButton.idleState = 1;
          this._heavyArmsButton.overState = 2;
          this._heavyArmsButton.disabledState = 3;
@@ -435,7 +438,7 @@ package src.interfaces
          this._heavyArmsButton.x = this._eagleEyeButton.x;
          this._heavyArmsButton.y = this._eagleEyeButton.y + this._eagleEyeButton.height + 1;
          _background.addChild(this._heavyArmsButton);
-         this._troopBuyButton = new CustomButton(this._imageManager.getImage("shop_buy_button"),42,18,3);
+         this._troopBuyButton = new CustomButton(shopButton(42,18,3,"BUY"),42,18,3);
          this._troopBuyButton.idleState = 2;
          this._troopBuyButton.overState = 3;
          this._troopBuyButton.disabledState = 1;
@@ -488,7 +491,7 @@ package src.interfaces
       
       private function InitializeWall() : void
       {
-         this._wallUpgradeButton = new CustomButton(this._imageManager.getImage("shop_barricade_button"),51,18,3);
+         this._wallUpgradeButton = new CustomButton(shopButton(51,18,3,""),51,18,3);
          this._wallUpgradeButton.idleState = 1;
          this._wallUpgradeButton.overState = 2;
          this._wallUpgradeButton.disabledState = 2;
@@ -496,22 +499,23 @@ package src.interfaces
          this._wallUpgradeButton.x = 258;
          this._wallUpgradeButton.y = 365;
          _background.addChild(this._wallUpgradeButton);
-         this._wallBuyButton = new CustomButton(this._imageManager.getImage("shop_buy_button"),42,18,3);
+         this._wallBuyButton = new CustomButton(shopButton(42,18,3,"BUY"),42,18,3);
          this._wallBuyButton.idleState = 2;
          this._wallBuyButton.overState = 3;
          this._wallBuyButton.disabledState = 1;
          this._wallBuyButton.x = 449;
          this._wallBuyButton.y = 340;
          _background.addChild(this._wallBuyButton);
-         this._upgradeText = this._fontManager.getString("UPGRADE","SHOP",1,3);
+         this._upgradeText = this._fontManager.getString("UPGRADE","SHOP",1,0);
          this._upgradeText.x = Calc.center(this._wallUpgradeButton.width,this._upgradeText.width,this._wallUpgradeButton.x);
          this._upgradeText.y = Calc.center(this._wallUpgradeButton.height,this._upgradeText.height,this._wallUpgradeButton.y);
          _background.addChild(this._upgradeText);
-         this._wallIcon = new AnimatedSprite(this._imageManager.getImage("shop_minimap"),235,101,3);
+         this._wallIcon = new AnimatedSprite(highResolutionBarricade(),940,404,3);
          this._wallIcon.addSequence("LEVEL_01",1,1,0,0);
          this._wallIcon.addSequence("LEVEL_02",2,2,0,0);
          this._wallIcon.addSequence("LEVEL_03",3,3,0,0);
          this._wallIcon.gotoAndStop("LEVEL_01");
+         this._wallIcon.scaleX=this._wallIcon.scaleY=0.25;
          this._wallIcon.x = 257;
          this._wallIcon.y = 233;
          _background.addChild(this._wallIcon);
@@ -523,6 +527,7 @@ package src.interfaces
          this._repairBar.x = 298;
          this._repairBar.y = 340;
          _background.addChild(this._repairBar);
+         this.addEventListener(Event.ENTER_FRAME,refreshRepairLabel,false,0,true);
       }
       
       private function InitializeStats() : void
@@ -779,7 +784,7 @@ package src.interfaces
                this._activeWeapon = 0;
                this._weaponIcon.gotoAndStop("PISTOL");
                _background.removeChild(this._pistolText);
-               this._pistolText = this._fontManager.getString("PISTOL","SHOP",1,3);
+               this._pistolText = this._fontManager.getString("PISTOL","SHOP",1,0);
                this._pistolText.x = 38;
                this._pistolText.y = 97;
                _background.addChild(this._pistolText);
@@ -788,7 +793,7 @@ package src.interfaces
                this._activeWeapon = 1;
                this._weaponIcon.gotoAndStop("SMG");
                _background.removeChild(this._smgText);
-               this._smgText = this._fontManager.getString("SMG","SHOP",1,3);
+               this._smgText = this._fontManager.getString("SMG","SHOP",1,0);
                this._smgText.x = this._pistolText.x;
                this._smgText.y = this._pistolText.y + this._pistolText.height + 11;
                _background.addChild(this._smgText);
@@ -797,7 +802,7 @@ package src.interfaces
                this._activeWeapon = 2;
                this._weaponIcon.gotoAndStop("SHOTGUN");
                _background.removeChild(this._shotgunText);
-               this._shotgunText = this._fontManager.getString("SHOTGUN","SHOP",1,3);
+               this._shotgunText = this._fontManager.getString("SHOTGUN","SHOP",1,0);
                this._shotgunText.x = this._smgText.x;
                this._shotgunText.y = this._smgText.y + this._smgText.height + 11;
                _background.addChild(this._shotgunText);
@@ -806,7 +811,7 @@ package src.interfaces
                this._activeWeapon = 3;
                this._weaponIcon.gotoAndStop("ASSAULT_RIFLE");
                _background.removeChild(this._assaultRifleText);
-               this._assaultRifleText = this._fontManager.getString("ASSAULT RIFLE","SHOP",1,3);
+               this._assaultRifleText = this._fontManager.getString("ASSAULT RIFLE","SHOP",1,0);
                this._assaultRifleText.x = this._shotgunText.x;
                this._assaultRifleText.y = this._shotgunText.y + this._shotgunText.height + 11;
                _background.addChild(this._assaultRifleText);
@@ -815,7 +820,7 @@ package src.interfaces
                this._activeWeapon = 4;
                this._weaponIcon.gotoAndStop("SNIPER");
                _background.removeChild(this._sniperText);
-               this._sniperText = this._fontManager.getString("SNIPER RIFLE","SHOP",1,3);
+               this._sniperText = this._fontManager.getString("SNIPER RIFLE","SHOP",1,0);
                this._sniperText.x = this._assaultRifleText.x;
                this._sniperText.y = this._assaultRifleText.y + this._assaultRifleText.height + 11;
                _background.addChild(this._sniperText);
@@ -824,7 +829,7 @@ package src.interfaces
                this._activeWeapon = 5;
                this._weaponIcon.gotoAndStop("RPG");
                _background.removeChild(this._rpgText);
-               this._rpgText = this._fontManager.getString("RPG LAUNCHER","SHOP",1,3);
+               this._rpgText = this._fontManager.getString("RPG LAUNCHER","SHOP",1,0);
                this._rpgText.x = this._sniperText.x;
                this._rpgText.y = this._sniperText.y + this._sniperText.height + 11;
                _background.addChild(this._rpgText);
@@ -833,7 +838,7 @@ package src.interfaces
                this._activeWeapon = 6;
                this._weaponIcon.gotoAndStop("RAILGUN");
                _background.removeChild(this._railgunText);
-               this._railgunText = this._fontManager.getString("RAILGUN","SHOP",1,3);
+               this._railgunText = this._fontManager.getString("RAILGUN","SHOP",1,0);
                this._railgunText.x = this._rpgText.x;
                this._railgunText.y = this._rpgText.y + this._rpgText.height + 11;
                _background.addChild(this._railgunText);
@@ -842,7 +847,7 @@ package src.interfaces
                this._activeWeapon = 7;
                this._weaponIcon.gotoAndStop("CHAINGUN");
                _background.removeChild(this._chaingunText);
-               this._chaingunText = this._fontManager.getString("CHAINGUN","SHOP",1,3);
+               this._chaingunText = this._fontManager.getString("CHAINGUN","SHOP",1,0);
                this._chaingunText.x = this._railgunText.x;
                this._chaingunText.y = this._railgunText.y + this._railgunText.height + 11;
                _background.addChild(this._chaingunText);
@@ -851,7 +856,7 @@ package src.interfaces
                this._activeWeapon = 8;
                this._weaponIcon.gotoAndStop("PHOTON_CANNON");
                _background.removeChild(this._photonCannonText);
-               this._photonCannonText = this._fontManager.getString("PHOTON CANNON","SHOP",1,3);
+               this._photonCannonText = this._fontManager.getString("PHOTON CANNON","SHOP",1,0);
                this._photonCannonText.x = this._chaingunText.x;
                this._photonCannonText.y = this._chaingunText.y + this._chaingunText.height + 11;
                _background.addChild(this._photonCannonText);
@@ -860,7 +865,7 @@ package src.interfaces
                this._activeWeapon = 9;
                this._weaponIcon.gotoAndStop("GRENADE");
                _background.removeChild(this._grenadeText);
-               this._grenadeText = this._fontManager.getString("GRENADE","SHOP",1,3);
+               this._grenadeText = this._fontManager.getString("GRENADE","SHOP",1,0);
                this._grenadeText.x = this._photonCannonText.x;
                this._grenadeText.y = this._photonCannonText.y + this._photonCannonText.height + 11;
                _background.addChild(this._grenadeText);
@@ -869,7 +874,7 @@ package src.interfaces
                this._activeWeapon = 10;
                this._weaponIcon.gotoAndStop("PAYLOAD");
                _background.removeChild(this._payloadText);
-               this._payloadText = this._fontManager.getString("PAYLOAD","SHOP",1,3);
+               this._payloadText = this._fontManager.getString("PAYLOAD","SHOP",1,0);
                this._payloadText.x = this._grenadeText.x;
                this._payloadText.y = this._grenadeText.y + this._grenadeText.height + 11;
                _background.addChild(this._payloadText);
@@ -894,17 +899,17 @@ package src.interfaces
                {
                   this._powerText = this._fontManager.getString(String(this._shopStats[this._activeWeapon].getDamage(this._shopStats[this._activeWeapon].level)) + "0","SHOP",1,0);
                }
-               this._powerText.x = 237 - this._powerText.width;
+               if(this._powerText.width>53)this._powerText.width=53; this._powerText.x = 237 - this._powerText.width;
                this._powerText.y = 150;
                _background.addChild(this._powerText);
                _background.removeChild(this._accuracyText);
                this._accuracyText = this._fontManager.getString(String(100 - this._shopStats[this._activeWeapon].getAccuracy(this._shopStats[this._activeWeapon].level)),"SHOP",1,0);
-               this._accuracyText.x = 237 - this._accuracyText.width;
+               if(this._accuracyText.width>53)this._accuracyText.width=53; this._accuracyText.x = 237 - this._accuracyText.width;
                this._accuracyText.y = this._powerText.y + this._powerText.height + 11;
                _background.addChild(this._accuracyText);
                _background.removeChild(this._clipText);
                this._clipText = this._fontManager.getString(String(this._shopStats[this._activeWeapon].getClip(this._shopStats[this._activeWeapon].level)),"SHOP",1,0);
-               this._clipText.x = 237 - this._clipText.width;
+               if(this._clipText.width>53)this._clipText.width=53; this._clipText.x = 237 - this._clipText.width;
                this._clipText.y = this._accuracyText.y + this._accuracyText.height + 11;
                _background.addChild(this._clipText);
                _background.removeChild(this._ammoText);
@@ -916,19 +921,19 @@ package src.interfaces
                {
                   this._ammoText = this._fontManager.getString(String(this._shopStats[this._activeWeapon].getAmmo(this._shopStats[this._activeWeapon].level)),"SHOP",1,0);
                }
-               this._ammoText.x = 237 - this._ammoText.width;
+               if(this._ammoText.width>53)this._ammoText.width=53; this._ammoText.x = 237 - this._ammoText.width;
                this._ammoText.y = this._clipText.y + this._clipText.height + 11;
                _background.addChild(this._ammoText);
                _background.removeChild(this._stockText);
                this._stockText = this._fontManager.getString("N/A","SHOP",1,0);
-               this._stockText.x = 237 - this._stockText.width;
+               if(this._stockText.width>53)this._stockText.width=53; this._stockText.x = 237 - this._stockText.width;
                this._stockText.y = this._ammoText.y + this._ammoText.height + 11;
                _background.addChild(this._stockText);
                _background.removeChild(this._arsenalCostText);
                this._arsenalCostText = this._fontManager.getString("0","SHOP_DIGITS",1,0);
                this._arsenalCostText.x = 138;
                this._arsenalCostText.y = 263;
-               _background.addChild(this._arsenalCostText);
+               priceMark(this._arsenalCostText); _background.addChild(this._arsenalCostText);
                _background.removeChild(this._levelText);
                this._levelText = this._fontManager.getString("T:" + String(this._shopStats[this._activeWeapon].level + 1),"SHOP",1,0);
                this._levelText.x = 237 - this._levelText.width;
@@ -950,27 +955,27 @@ package src.interfaces
                this._classified.visible = true;
                _background.removeChild(this._powerText);
                this._powerText = this._fontManager.getString("N/A","SHOP",1,0);
-               this._powerText.x = 237 - this._powerText.width;
+               if(this._powerText.width>53)this._powerText.width=53; this._powerText.x = 237 - this._powerText.width;
                this._powerText.y = 150;
                _background.addChild(this._powerText);
                _background.removeChild(this._accuracyText);
                this._accuracyText = this._fontManager.getString("N/A","SHOP",1,0);
-               this._accuracyText.x = 237 - this._accuracyText.width;
+               if(this._accuracyText.width>53)this._accuracyText.width=53; this._accuracyText.x = 237 - this._accuracyText.width;
                this._accuracyText.y = this._powerText.y + this._powerText.height + 11;
                _background.addChild(this._accuracyText);
                _background.removeChild(this._clipText);
                this._clipText = this._fontManager.getString("N/A","SHOP",1,0);
-               this._clipText.x = 237 - this._clipText.width;
+               if(this._clipText.width>53)this._clipText.width=53; this._clipText.x = 237 - this._clipText.width;
                this._clipText.y = this._accuracyText.y + this._accuracyText.height + 11;
                _background.addChild(this._clipText);
                _background.removeChild(this._ammoText);
                this._ammoText = this._fontManager.getString("N/A","SHOP",1,0);
-               this._ammoText.x = 237 - this._ammoText.width;
+               if(this._ammoText.width>53)this._ammoText.width=53; this._ammoText.x = 237 - this._ammoText.width;
                this._ammoText.y = this._clipText.y + this._clipText.height + 11;
                _background.addChild(this._ammoText);
                _background.removeChild(this._stockText);
                this._stockText = this._fontManager.getString("N/A","SHOP",1,0);
-               this._stockText.x = 237 - this._stockText.width;
+               if(this._stockText.width>53)this._stockText.width=53; this._stockText.x = 237 - this._stockText.width;
                this._stockText.y = this._ammoText.y + this._ammoText.height + 11;
                _background.addChild(this._stockText);
                _background.removeChild(this._arsenalCostText);
@@ -986,7 +991,7 @@ package src.interfaces
                }
                this._arsenalCostText.x = 138;
                this._arsenalCostText.y = 263;
-               _background.addChild(this._arsenalCostText);
+               priceMark(this._arsenalCostText); _background.addChild(this._arsenalCostText);
                _background.removeChild(this._levelText);
                this._levelText = this._fontManager.getString("T:-","SHOP",1,0);
                this._levelText.x = 237 - this._levelText.width;
@@ -1001,22 +1006,22 @@ package src.interfaces
             _loc2_ = false;
             _background.removeChild(this._powerText);
             this._powerText = this._fontManager.getString(String(this._shopStats[this._activeWeapon].getDamage(this._shopStats[this._activeWeapon].level)) + "0","SHOP",1,0);
-            this._powerText.x = 237 - this._powerText.width;
+            if(this._powerText.width>53)this._powerText.width=53; this._powerText.x = 237 - this._powerText.width;
             this._powerText.y = 150;
             _background.addChild(this._powerText);
             _background.removeChild(this._accuracyText);
             this._accuracyText = this._fontManager.getString("N/A","SHOP",1,0);
-            this._accuracyText.x = 237 - this._accuracyText.width;
+            if(this._accuracyText.width>53)this._accuracyText.width=53; this._accuracyText.x = 237 - this._accuracyText.width;
             this._accuracyText.y = this._powerText.y + this._powerText.height + 11;
             _background.addChild(this._accuracyText);
             _background.removeChild(this._clipText);
             this._clipText = this._fontManager.getString("N/A","SHOP",1,0);
-            this._clipText.x = 237 - this._clipText.width;
+            if(this._clipText.width>53)this._clipText.width=53; this._clipText.x = 237 - this._clipText.width;
             this._clipText.y = this._accuracyText.y + this._accuracyText.height + 11;
             _background.addChild(this._clipText);
             _background.removeChild(this._ammoText);
             this._ammoText = this._fontManager.getString(String(this._shopStats[this._activeWeapon].getAmmo(this._shopStats[this._activeWeapon].level)),"SHOP",1,0);
-            this._ammoText.x = 237 - this._ammoText.width;
+            if(this._ammoText.width>53)this._ammoText.width=53; this._ammoText.x = 237 - this._ammoText.width;
             this._ammoText.y = this._clipText.y + this._clipText.height + 11;
             _background.addChild(this._ammoText);
             _background.removeChild(this._stockText);
@@ -1036,7 +1041,7 @@ package src.interfaces
                   _loc2_ = true;
                }
             }
-            this._stockText.x = 237 - this._stockText.width;
+            if(this._stockText.width>53)this._stockText.width=53; this._stockText.x = 237 - this._stockText.width;
             this._stockText.y = this._ammoText.y + this._ammoText.height + 11;
             _background.addChild(this._stockText);
             _background.removeChild(this._arsenalCostText);
@@ -1059,7 +1064,7 @@ package src.interfaces
             }
             this._arsenalCostText.x = 138;
             this._arsenalCostText.y = 263;
-            _background.addChild(this._arsenalCostText);
+            priceMark(this._arsenalCostText); _background.addChild(this._arsenalCostText);
             _background.removeChild(this._levelText);
             this._levelText = this._fontManager.getString("T:-","SHOP",1,0);
             this._levelText.x = 237 - this._levelText.width;
@@ -1178,7 +1183,7 @@ package src.interfaces
             case this._quickDrawButton:
                this._activeTroop = 0;
                _background.removeChild(this._quickDrawText);
-               this._quickDrawText = this._fontManager.getString("QUICK DRAW","SHOP",1,3);
+               this._quickDrawText = this._fontManager.getString("QUICK DRAW","SHOP",1,0);
                this._quickDrawText.x = 278;
                this._quickDrawText.y = 94;
                _background.addChild(this._quickDrawText);
@@ -1186,7 +1191,7 @@ package src.interfaces
             case this._buckshotButton:
                this._activeTroop = 2;
                _background.removeChild(this._buckshotText);
-               this._buckshotText = this._fontManager.getString("BUCKSHOT","SHOP",1,3);
+               this._buckshotText = this._fontManager.getString("BUCKSHOT","SHOP",1,0);
                this._buckshotText.x = this._quickDrawText.x;
                this._buckshotText.y = this._quickDrawText.y + this._quickDrawText.height + 11;
                _background.addChild(this._buckshotText);
@@ -1194,7 +1199,7 @@ package src.interfaces
             case this._gungHoButton:
                this._activeTroop = 1;
                _background.removeChild(this._gungHoText);
-               this._gungHoText = this._fontManager.getString("GUNG-HO","SHOP",1,3);
+               this._gungHoText = this._fontManager.getString("GUNG-HO","SHOP",1,0);
                this._gungHoText.x = this._buckshotText.x;
                this._gungHoText.y = this._buckshotText.y + this._buckshotText.height + 11;
                _background.addChild(this._gungHoText);
@@ -1202,7 +1207,7 @@ package src.interfaces
             case this._bbqueButton:
                this._activeTroop = 5;
                _background.removeChild(this._bbqueText);
-               this._bbqueText = this._fontManager.getString("B. B. QUE","SHOP",1,3);
+               this._bbqueText = this._fontManager.getString("B. B. QUE","SHOP",1,0);
                this._bbqueText.x = this._gungHoText.x;
                this._bbqueText.y = this._gungHoText.y + this._gungHoText.height + 11;
                _background.addChild(this._bbqueText);
@@ -1210,7 +1215,7 @@ package src.interfaces
             case this._eagleEyeButton:
                this._activeTroop = 3;
                _background.removeChild(this._eagleEyeText);
-               this._eagleEyeText = this._fontManager.getString("EAGLE EYE","SHOP",1,3);
+               this._eagleEyeText = this._fontManager.getString("EAGLE EYE","SHOP",1,0);
                this._eagleEyeText.x = this._bbqueText.x;
                this._eagleEyeText.y = this._bbqueText.y + this._bbqueText.height + 11;
                _background.addChild(this._eagleEyeText);
@@ -1218,7 +1223,7 @@ package src.interfaces
             case this._heavyArmsButton:
                this._activeTroop = 4;
                _background.removeChild(this._heavyArmsText);
-               this._heavyArmsText = this._fontManager.getString("HEAVY ARMS","SHOP",1,3);
+               this._heavyArmsText = this._fontManager.getString("HEAVY ARMS","SHOP",1,0);
                this._heavyArmsText.x = this._eagleEyeText.x;
                this._heavyArmsText.y = this._eagleEyeText.y + this._eagleEyeText.height + 11;
                _background.addChild(this._heavyArmsText);
@@ -1284,7 +1289,7 @@ package src.interfaces
             }
             this._troopCostText.x = 359;
             this._troopCostText.y = 175;
-            _background.addChild(this._troopCostText);
+            priceMark(this._troopCostText); _background.addChild(this._troopCostText);
          }
          else
          {
@@ -1320,7 +1325,7 @@ package src.interfaces
             this._troopCostText = this._fontManager.getString("0","SHOP_DIGITS",1,0);
             this._troopCostText.x = 359;
             this._troopCostText.y = 175;
-            _background.addChild(this._troopCostText);
+            priceMark(this._troopCostText); _background.addChild(this._troopCostText);
          }
       }
       
@@ -1430,7 +1435,7 @@ package src.interfaces
          }
          this._arsenalCostText.x = 138;
          this._arsenalCostText.y = 263;
-         _background.addChild(this._arsenalCostText);
+         priceMark(this._arsenalCostText); _background.addChild(this._arsenalCostText);
          _background.removeChild(this._powerText);
          if(this._activeWeapon == 2)
          {
@@ -1447,7 +1452,7 @@ package src.interfaces
          this._powerText.addChild(_loc2_);
          _loc3_.x = this._powerText.width + 4;
          this._powerText.addChild(_loc3_);
-         this._powerText.x = 237 - this._powerText.width;
+         if(this._powerText.width>53)this._powerText.width=53; this._powerText.x = 237 - this._powerText.width;
          this._powerText.y = 150;
          _background.addChild(this._powerText);
          _background.removeChild(this._accuracyText);
@@ -1458,7 +1463,7 @@ package src.interfaces
          this._accuracyText.addChild(_loc2_);
          _loc3_.x = this._accuracyText.width + 4;
          this._accuracyText.addChild(_loc3_);
-         this._accuracyText.x = 237 - this._accuracyText.width;
+         if(this._accuracyText.width>53)this._accuracyText.width=53; this._accuracyText.x = 237 - this._accuracyText.width;
          this._accuracyText.y = this._powerText.y + this._powerText.height + 11;
          _background.addChild(this._accuracyText);
          _background.removeChild(this._clipText);
@@ -1469,7 +1474,7 @@ package src.interfaces
          this._clipText.addChild(_loc2_);
          _loc3_.x = this._clipText.width + 4;
          this._clipText.addChild(_loc3_);
-         this._clipText.x = 237 - this._clipText.width;
+         if(this._clipText.width>53)this._clipText.width=53; this._clipText.x = 237 - this._clipText.width;
          this._clipText.y = this._accuracyText.y + this._accuracyText.height + 11;
          _background.addChild(this._clipText);
          if(this._shopStats[this._activeWeapon].getAmmo(this._shopStats[this._activeWeapon].level) != -1)
@@ -1482,7 +1487,7 @@ package src.interfaces
             this._ammoText.addChild(_loc2_);
             _loc3_.x = this._ammoText.width + 4;
             this._ammoText.addChild(_loc3_);
-            this._ammoText.x = 237 - this._ammoText.width;
+            if(this._ammoText.width>53)this._ammoText.width=53; this._ammoText.x = 237 - this._ammoText.width;
             this._ammoText.y = this._clipText.y + this._clipText.height + 11;
             _background.addChild(this._ammoText);
          }
@@ -1700,7 +1705,7 @@ package src.interfaces
                   this._wallCostText = this._fontManager.getString("0","SHOP_DIGITS",1,0);
                   this._wallCostText.x = 384;
                   this._wallCostText.y = 343;
-                  _background.addChild(this._wallCostText);
+                  priceMark(this._wallCostText); _background.addChild(this._wallCostText);
                   this._activeUpgrade = -1;
                   switch(this._activeWeapon)
                   {
@@ -1760,7 +1765,7 @@ package src.interfaces
                this._wallCostText = this._fontManager.getString("0","SHOP_DIGITS",1,0);
                this._wallCostText.x = 384;
                this._wallCostText.y = 343;
-               _background.addChild(this._wallCostText);
+               priceMark(this._wallCostText); _background.addChild(this._wallCostText);
                switch(this._activeWeapon)
                {
                   case 0:
@@ -1857,7 +1862,7 @@ package src.interfaces
          }
          this._wallCostText.x = 384;
          this._wallCostText.y = 343;
-         _background.addChild(this._wallCostText);
+         priceMark(this._wallCostText); _background.addChild(this._wallCostText);
       }
       
       private function updateRepairCost(param1:Event) : void
@@ -1936,7 +1941,7 @@ package src.interfaces
          }
          this._wallCostText.x = 384;
          this._wallCostText.y = 343;
-         _background.addChild(this._wallCostText);
+         priceMark(this._wallCostText); _background.addChild(this._wallCostText);
       }
       
       public function reset() : void
@@ -2034,7 +2039,7 @@ package src.interfaces
             _background.removeChild(this._powerText);
          }
          this._powerText = this._fontManager.getString("N/A","SHOP",1,0);
-         this._powerText.x = 237 - this._powerText.width;
+         if(this._powerText.width>53)this._powerText.width=53; this._powerText.x = 237 - this._powerText.width;
          this._powerText.y = 150;
          _background.addChild(this._powerText);
          if(this._accuracyText != null && _background.contains(this._accuracyText))
@@ -2042,7 +2047,7 @@ package src.interfaces
             _background.removeChild(this._accuracyText);
          }
          this._accuracyText = this._fontManager.getString("N/A","SHOP",1,0);
-         this._accuracyText.x = 237 - this._accuracyText.width;
+         if(this._accuracyText.width>53)this._accuracyText.width=53; this._accuracyText.x = 237 - this._accuracyText.width;
          this._accuracyText.y = this._powerText.y + this._powerText.height + 11;
          _background.addChild(this._accuracyText);
          if(this._clipText != null && _background.contains(this._clipText))
@@ -2050,7 +2055,7 @@ package src.interfaces
             _background.removeChild(this._clipText);
          }
          this._clipText = this._fontManager.getString("N/A","SHOP",1,0);
-         this._clipText.x = 237 - this._clipText.width;
+         if(this._clipText.width>53)this._clipText.width=53; this._clipText.x = 237 - this._clipText.width;
          this._clipText.y = this._accuracyText.y + this._accuracyText.height + 11;
          _background.addChild(this._clipText);
          if(this._ammoText != null && _background.contains(this._ammoText))
@@ -2058,7 +2063,7 @@ package src.interfaces
             _background.removeChild(this._ammoText);
          }
          this._ammoText = this._fontManager.getString("N/A","SHOP",1,0);
-         this._ammoText.x = 237 - this._ammoText.width;
+         if(this._ammoText.width>53)this._ammoText.width=53; this._ammoText.x = 237 - this._ammoText.width;
          this._ammoText.y = this._clipText.y + this._clipText.height + 11;
          _background.addChild(this._ammoText);
          if(this._stockText != null && _background.contains(this._stockText))
@@ -2066,7 +2071,7 @@ package src.interfaces
             _background.removeChild(this._stockText);
          }
          this._stockText = this._fontManager.getString("N/A","SHOP",1,0);
-         this._stockText.x = 237 - this._stockText.width;
+         if(this._stockText.width>53)this._stockText.width=53; this._stockText.x = 237 - this._stockText.width;
          this._stockText.y = this._ammoText.y + this._ammoText.height + 11;
          _background.addChild(this._stockText);
          if(this._arsenalCostText != null && _background.contains(this._arsenalCostText))
@@ -2076,7 +2081,7 @@ package src.interfaces
          this._arsenalCostText = this._fontManager.getString("0","SHOP_DIGITS",1,0);
          this._arsenalCostText.x = 138;
          this._arsenalCostText.y = 263;
-         _background.addChild(this._arsenalCostText);
+         priceMark(this._arsenalCostText); _background.addChild(this._arsenalCostText);
          if(this._weaponNameText != null && _background.contains(this._weaponNameText))
          {
             _background.removeChild(this._weaponNameText);
@@ -2188,7 +2193,7 @@ package src.interfaces
          this._troopCostText = this._fontManager.getString("0","SHOP_DIGITS",1,0);
          this._troopCostText.x = 359;
          this._troopCostText.y = 175;
-         _background.addChild(this._troopCostText);
+         priceMark(this._troopCostText); _background.addChild(this._troopCostText);
          this._activeTroop = -1;
          this._topSecret.visible = true;
          this._quickDrawButton.enabled = true;
@@ -2204,7 +2209,7 @@ package src.interfaces
          this._wallCostText = this._fontManager.getString("0","SHOP_DIGITS",1,0);
          this._wallCostText.x = 384;
          this._wallCostText.y = 343;
-         _background.addChild(this._wallCostText);
+         priceMark(this._wallCostText); _background.addChild(this._wallCostText);
          if(this._wallLevelText != null && _background.contains(this._wallLevelText))
          {
             _background.removeChild(this._wallLevelText);
@@ -2261,6 +2266,70 @@ package src.interfaces
       {
          return this._troopSelection.loadout;
       }
+
+      private static function shopFrame(p:Sprite,x:Number,y:Number,w:Number,h:Number,color:uint=0x080d0e):void {
+       p.graphics.lineStyle();p.graphics.beginFill(color,0.98);p.graphics.drawRect(x,y,w,h);p.graphics.endFill();
+       p.graphics.lineStyle(1,(w==509?0x67736d:0x35433b));p.graphics.drawRect(x+0.5,y+0.5,w-1,h-1);
+       if(w==509){p.graphics.lineStyle(1,0x27332e);p.graphics.drawRect(x+2.5,y+2.5,w-5,h-5);}
+      }
+      private static function shopText(p:Sprite,value:String,x:Number,y:Number,scale:Number=1):void {
+       var t:Sprite=FontManager.getInstance().getString(value,"SHOP",1,0);t.x=x;t.y=y;t.scaleX=t.scaleY=scale;p.addChild(t);
+      }
+      private static function shopBackground():Bitmap {
+       var p:Sprite=new Sprite();shopFrame(p,0,0,509,441);
+       shopText(p,"SHOP",17,14,2.5);shopText(p,"SCORE",228,15);shopText(p,"MONEY",355,15);
+       shopFrame(p,12,56,111,226);shopText(p,"ARSENAL",36,70,1.3);
+       shopFrame(p,125,56,121,226);
+       var labels:Array=["POWER","ACC","CLIP SIZE","AMMO","STOCK"];
+       for(var i:int=0;i<5;i++){p.graphics.lineStyle(1,0x1c2822);p.graphics.moveTo(129,145+i*17);p.graphics.lineTo(241,145+i*17);shopText(p,labels[i],130,150+i*17);}
+       shopFrame(p,253,56,244,139);shopText(p,"TROOPS",280,70,1.3);
+       shopText(p,"DMG",349,154);shopText(p,"R/S",396,154);shopText(p,"STOCK",447,154);
+       shopFrame(p,253,201,244,184);shopText(p,"BARRICADE",335,213,1.3);shopText(p,"REPAIR",259,346);
+       shopFrame(p,12,289,234,140);shopText(p,"MISSION REPORT",57,302,1.3);
+       var report:Array=["WAVE","SCORE","MONEY EARNED","GRUNTS KILLED","VEHICLES DESTROYED","BARRICADE HEALTH"];
+       for(i=0;i<6;i++){p.graphics.lineStyle(1,0x1c2822);p.graphics.moveTo(21,338+i*17);p.graphics.lineTo(236,338+i*17);shopText(p,report[i],23,326+i*17);}
+       var data:BitmapData=new BitmapData(509,441,true,0);data.draw(p);return new Bitmap(data);
+      }
+      private static function shopButton(w:int,h:int,frames:int,value:String):Bitmap {
+       var data:BitmapData=new BitmapData(w,h*frames,true,0);
+       for(var i:int=0;i<frames;i++){
+        var p:Sprite=new Sprite();
+        if(value.length==0 && w>70){
+         p.graphics.beginFill(i==0?0x080d0e:(i==1?0x30442b:0x26352c));p.graphics.drawRect(0,0,w,h);p.graphics.endFill();
+         if(i==1){p.graphics.beginFill(0x9ac76a);p.graphics.drawRect(0,2,2,h-4);p.graphics.endFill();}
+        }else {shopFrame(p,0,0,w,h,value=="NEXT WAVE"?(i==0?0x30442b:0x405937):(i==0?0x17201b:(i==1?0x263623:0x35452d)));}
+        if(value.length>0){var size:Number=value=="NEXT WAVE"?1.6:1;var t:Sprite=FontManager.getInstance().getString(value,"SHOP",1,0);t.scaleX=t.scaleY=size;t.x=(w-t.width)/2;t.y=(h-t.height)/2;p.addChild(t);}
+        else if(w>70){p.graphics.lineStyle();p.graphics.beginFill(i==2?0xa0ce6b:0xc7d0bf);p.graphics.drawRect(5,5,5,6);p.graphics.drawRect(10,6,3,4);p.graphics.endFill();}
+        var m:Matrix=new Matrix();m.translate(0,i*h);data.draw(p,m);
+       }return new Bitmap(data);
+      }
+
+      private function refreshRepairLabel(e:Event):void {
+       if(!visible||!_repairBar)return;
+       var value:String="HP "+String(_wallHealth)+" > "+String(_repairBar.health);if(value==_repairLabelValue)return;_repairLabelValue=value;
+       if(_repairHealthLabel)_background.removeChild(_repairHealthLabel);
+       _repairHealthLabel=_fontManager.getString(value,"SHOP",1,0);
+       _repairHealthLabel.x=320;_repairHealthLabel.y=369;_background.addChild(_repairHealthLabel);
+      }
+      private function priceMark(p:Sprite):void {
+       var mark:Sprite=new Sprite();var rows:Array=["01110","11000","11000","01110","00011","00011","11110"];
+       mark.graphics.beginFill(0xcbd5c4);for(var y:int=0;y<7;y++)for(var x:int=0;x<5;x++)if(String(rows[y]).charAt(x)=="1")mark.graphics.drawRect(x,y,1,1);
+       mark.graphics.drawRect(2,-1,1,9);mark.graphics.endFill();mark.x=-8;mark.y=2;p.addChild(mark);
+      }
+
+      private static function highResolutionBarricade():Bitmap {
+       var images:ImageManager=ImageManager.getInstance();var sheet:BitmapData=new BitmapData(940,1212,true,0);
+       for(var tier:int=0;tier<3;tier++){
+        var scene:Sprite=new Sprite();var background:Bitmap=images.getImage("background");background.scaleX=background.scaleY=1.016;background.x=-656;background.y=-88;scene.addChild(background);
+        var right:AnimatedSprite=new AnimatedSprite(images.getImage("walls_right"),489,310,3);right.addSequence("STILL",tier+1,tier+1,0,0);right.gotoAndStop("STILL");right.scaleX=right.scaleY=1.02;right.x=540;right.y=76;scene.addChild(right);
+        var left:AnimatedSprite=new AnimatedSprite(images.getImage("walls_left"),499,302,3);left.addSequence("STILL",tier+1,tier+1,0,0);left.gotoAndStop("STILL");left.scaleX=left.scaleY=1.04;left.x=-128;left.y=76;scene.addChild(left);
+        var frame:BitmapData=new BitmapData(940,404,true,0);var crop:Matrix=new Matrix();frame.draw(scene,crop,null,null,null,false);sheet.copyPixels(frame,frame.rect,new Point(0,tier*404));frame.dispose();
+       }return new Bitmap(sheet);
+      }
    }
 }
+
+
+
+
 

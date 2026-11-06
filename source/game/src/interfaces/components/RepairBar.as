@@ -2,7 +2,7 @@ package src.interfaces.components
 {
    import com.hcLibrary.display.AnimatedSprite;
    import com.hcLibrary.managers.ImageManager;
-   import flash.display.Sprite;
+   import flash.display.Sprite; import flash.geom.ColorTransform;
    import flash.events.Event;
    import flash.events.MouseEvent;
    
@@ -25,18 +25,19 @@ package src.interfaces.components
       
       private var _health:int;
       
-      private var _totalHealth:int;
+      private var _totalHealth:int; private var _currentHealth:int;
       
       public function RepairBar()
       {
          super();
          this._imageManager = ImageManager.getInstance();
+         graphics.beginFill(0x26312a);graphics.drawRect(0,0,69,18);graphics.endFill();graphics.lineStyle(1,0x899680);graphics.drawRect(-0.5,-0.5,70,19);
          this._darkHealthBar = new Sprite();
-         this._darkHealthBar.addChild(this._imageManager.getImage("health_fill_dark"));
+         this._darkHealthBar.graphics.beginFill(0xffffff);this._darkHealthBar.graphics.drawRect(0,0,1,16);this._darkHealthBar.graphics.endFill();this._darkHealthBar.y=1;this._darkHealthBar.alpha=0.4;
          this._darkHealthBar.scaleX = MAX_SCALE;
          this.addChild(this._darkHealthBar);
          this._healthBar = new Sprite();
-         this._healthBar.addChild(this._imageManager.getImage("health_fill"));
+         this._healthBar.graphics.beginFill(0xffffff);this._healthBar.graphics.drawRect(0,0,1,16);this._healthBar.graphics.endFill();this._healthBar.y=1;
          this._healthBar.scaleX = MAX_SCALE;
          this.addChild(this._healthBar);
          this._button = new AnimatedSprite(this._imageManager.getImage("shop_repair_slider"),6,20,2);
@@ -54,10 +55,10 @@ package src.interfaces.components
       public function setHealth(param1:int, param2:int) : void
       {
          var _loc3_:Number = param1 / param2;
-         this._health = param1;
+         this._health = this._currentHealth = param1;
          this._totalHealth = param2;
          this._minimumScale = Math.floor(MAX_SCALE * _loc3_);
-         this._healthBar.scaleX = this._darkHealthBar.scaleX = this._minimumScale;
+         this._healthBar.scaleX = this._darkHealthBar.scaleX = MAX_SCALE*_loc3_;this.updateColors();
          this._button.x = this._minimumScale - 3;
          if(_loc3_ == 1)
          {
@@ -130,15 +131,21 @@ package src.interfaces.components
          {
             _loc2_ = MAX_SCALE;
          }
-         this._health = Math.ceil(_loc2_ / MAX_SCALE * this._totalHealth);
+         this._health = Math.max(this._currentHealth,Math.ceil(_loc2_ / MAX_SCALE * this._totalHealth));
          if(this._button.x != _loc2_ - 3)
          {
             this.dispatchEvent(new Event("UPDATE"));
          }
          this._button.x = _loc2_ - 3;
-         this._darkHealthBar.scaleX = _loc2_;
+         this._darkHealthBar.scaleX = MAX_SCALE*this._health/Math.max(1,this._totalHealth);this.updateColors();
       }
       
+      private function updateColors():void {
+       var tint:ColorTransform=new ColorTransform();tint.color=healthColor(this._currentHealth);this._healthBar.transform.colorTransform=tint;
+       var preview:ColorTransform=new ColorTransform();preview.color=healthColor(this._health);this._darkHealthBar.transform.colorTransform=preview;
+      }
+      private function healthColor(value:int):uint {var ratio:Number=value/Math.max(1,this._totalHealth);return ratio<0.25?0xe64038:(ratio<=0.5?0xe2b83b:0x80c735);}
+
       public function get health() : int
       {
          return this._health;

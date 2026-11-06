@@ -44,6 +44,10 @@ package src.interfaces.components
          this.addChild(this._container);
          this.addChild(this._background);
          this.InitializeParts();
+         var hints:Sprite=new Sprite();hints.mouseEnabled=false;hints.mouseChildren=false;
+         for(var hintIndex:int=0;hintIndex<this._slots.length;hintIndex++){
+          var slot:Sprite=this._slots[hintIndex];hints.graphics.lineStyle(1,0x8d9d79,0.75);hints.graphics.drawRect(slot.x+5,slot.y+2,56,9);
+         }this.addChildAt(hints,0);
          this._activeSlot = -1;
       }
       

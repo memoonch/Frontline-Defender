@@ -4,7 +4,7 @@ package src.interfaces.components
    import com.hcLibrary.display.CustomButton;
    import com.hcLibrary.events.GameEvent;
    import com.hcLibrary.managers.ImageManager;
-   import flash.display.Sprite;
+   import flash.display.Sprite;import flash.display.Bitmap;import flash.display.BitmapData;import flash.geom.Matrix;import com.hcLibrary.managers.FontManager;
    import flash.events.Event;
    
    public class TroopPlate extends Sprite
@@ -36,7 +36,8 @@ package src.interfaces.components
          this._overlay.graphics.endFill();
          this.addChild(this._overlay);
          this._background = new Sprite();
-         this._background.addChild(this._imageManager.getImage("shop_troop_selection_plate"));
+         this._background.graphics.beginFill(0x080d0e,0.98);this._background.graphics.drawRect(0,0,153,76);this._background.graphics.endFill();
+         var heading:Sprite=FontManager.getInstance().getString("SELECT TROOP","SHOP",1,0);heading.x=(153-heading.width)/2;heading.y=8;this._background.addChild(heading);
          this._background.x = Calc.center(this._overlay.width,this._background.width);
          this._background.y = Calc.center(this._overlay.height,this._background.height);
          this.addChild(this._background);
@@ -48,14 +49,14 @@ package src.interfaces.components
       private function InitializeButtons() : void
       {
          var _loc2_:TroopButton = null;
-         this._nextButton = new CustomButton(this._imageManager.getImage("shop_troop_selection_arrows"),19,44,4);
+         this._nextButton = new CustomButton(arrowSheet(),19,44,4);
          this._nextButton.idleState = 3;
          this._nextButton.overState = 4;
          this._nextButton.x = this._background.x + this._background.width;
          this._nextButton.y = this._background.y + 29;
          this._nextButton.enabled = true;
          this.addChild(this._nextButton);
-         this._previousButton = new CustomButton(this._imageManager.getImage("shop_troop_selection_arrows"),19,44,4);
+         this._previousButton = new CustomButton(arrowSheet(),19,44,4);
          this._previousButton.idleState = 1;
          this._previousButton.overState = 2;
          this._previousButton.x = this._background.x - this._previousButton.width;
@@ -239,6 +240,11 @@ package src.interfaces.components
       public function get troopType() : int
       {
          return this._clickedTroop;
+      }
+
+      private static function arrowSheet():Bitmap {
+       var data:BitmapData=new BitmapData(19,176,true,0);
+       for(var i:int=0;i<4;i++){var p:Sprite=new Sprite();p.graphics.beginFill(i%2==0?0x101a14:0x263623);p.graphics.drawRect(0,0,19,44);p.graphics.endFill();p.graphics.lineStyle(1,0x45574b);p.graphics.drawRect(0.5,0.5,18,43);p.graphics.lineStyle(2,0xc4d2b8);var right:Boolean=i>=2;p.graphics.moveTo(right?6:12,16);p.graphics.lineTo(right?12:6,22);p.graphics.lineTo(right?6:12,28);var m:Matrix=new Matrix();m.translate(0,i*44);data.draw(p,m);}return new Bitmap(data);
       }
    }
 }
