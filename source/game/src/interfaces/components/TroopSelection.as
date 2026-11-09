@@ -2,7 +2,7 @@ package src.interfaces.components
 {
    import com.hcLibrary.display.AnimatedSprite;
    import com.hcLibrary.managers.ImageManager;
-   import flash.display.Sprite; import flash.display.Bitmap; import flash.display.BitmapData; import flash.geom.Matrix;import flash.geom.Rectangle;import flash.geom.Point;
+   import flash.display.Sprite;import com.hcLibrary.managers.FontManager; import flash.display.Bitmap; import flash.display.BitmapData; import flash.geom.Matrix;import flash.geom.Rectangle;import flash.geom.Point;
    import flash.events.Event;
    import flash.events.MouseEvent;
    
@@ -36,7 +36,8 @@ package src.interfaces.components
          super();
          this._imageManager = ImageManager.getInstance();
          this._background = new Sprite();
-         this._background.addChild(this._imageManager.getImage("shop_hover_prompt"));
+         this._background.graphics.beginFill(0x020706,0.25);this._background.graphics.drawRect(0,0,235,101);this._background.graphics.endFill();
+         var instruction:Sprite=FontManager.getInstance().getString("HOVER TO PLACE TROOPS","SHOP",1,0);instruction.x=(235-instruction.width)/2;instruction.y=47;instruction.alpha=1;this._background.graphics.beginFill(0x080d0e,0.92);this._background.graphics.drawRect(instruction.x-6,43,instruction.width+12,15);this._background.graphics.endFill();instruction.mouseEnabled=false;instruction.mouseChildren=false;this._background.addChild(instruction);
          this._container = new Sprite();
          this._container.graphics.beginFill(0,0);
          this._container.graphics.drawRect(0,0,this._background.width,this._background.height);

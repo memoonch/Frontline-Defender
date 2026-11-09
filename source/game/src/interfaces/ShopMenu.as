@@ -7,7 +7,7 @@ package src.interfaces
    import com.hcLibrary.managers.FontManager;
    import com.hcLibrary.managers.ImageManager;
    import flash.display.Sprite; import flash.display.Bitmap; import flash.display.BitmapData; import flash.geom.Matrix;import flash.geom.Point;
-   import flash.events.Event;
+   import flash.events.Event;import flash.events.MouseEvent;
    import src.Main;
    import src.components.gui.Options;
    import src.data.ShopTroopData;
@@ -168,6 +168,8 @@ package src.interfaces
       private var _troopSelection:TroopSelection;
       
       private var _repairBar:RepairBar;
+      private var upgradeSummary:Sprite;private var repairAction:Sprite;private var upgradeAction:Sprite;private var weaponActionText:Sprite;private var repairPriceText:Sprite;private var upgradePriceText:Sprite;
+      private var _arsenalMax:Sprite;private var _wallMax:Sprite;private var _repairFull:Sprite;
       private var _repairHealthLabel:Sprite; private var _repairLabelValue:String="";
       
       private var _wallLevel:int;
@@ -351,17 +353,17 @@ package src.interfaces
          this._arsenalUpgradeButton = new CustomButton(shopButton(114,23,3,"UPGRADE"),114,23,3);
          this._arsenalUpgradeButton.idleState = 2;
          this._arsenalUpgradeButton.overState = 3;
-         this._arsenalUpgradeButton.disabledState = 3;
+         this._arsenalUpgradeButton.disabledState = 1;
          this._arsenalUpgradeButton.x = 127;
          this._arsenalUpgradeButton.y = 230;
          this._arsenalUpgradeButton.visible = false;
          _background.addChild(this._arsenalUpgradeButton);
-         this._arsenalBuyButton = new CustomButton(shopButton(42,18,3,"BUY"),42,18,3);
+         this._arsenalBuyButton = new CustomButton(shopButton(114,23,3,"BUY"),114,23,3);
          this._arsenalBuyButton.idleState = 2;
          this._arsenalBuyButton.overState = 3;
          this._arsenalBuyButton.disabledState = 1;
-         this._arsenalBuyButton.x = 199;
-         this._arsenalBuyButton.y = 260;
+         this._arsenalBuyButton.x = 127;
+         this._arsenalBuyButton.y = 258;
          _background.addChild(this._arsenalBuyButton);
          this._weaponIcon = new AnimatedSprite(this._imageManager.getImage("shop_arsenal_icons"),114,71,11);
          this._weaponIcon.addSequence("PISTOL",1,1,0,0);
@@ -493,9 +495,9 @@ package src.interfaces
       private function InitializeWall() : void
       {
          this._wallUpgradeButton = new CustomButton(shopButton(51,18,3,""),51,18,3);
-         this._wallUpgradeButton.idleState = 1;
-         this._wallUpgradeButton.overState = 2;
-         this._wallUpgradeButton.disabledState = 2;
+         this._wallUpgradeButton.idleState = 2;
+         this._wallUpgradeButton.overState = 3;
+         this._wallUpgradeButton.disabledState = 1;
          this._wallUpgradeButton.enabled = true;
          this._wallUpgradeButton.x = 258;
          this._wallUpgradeButton.y = 365;
@@ -516,13 +518,13 @@ package src.interfaces
          this._wallIcon.addSequence("LEVEL_02",2,2,0,0);
          this._wallIcon.addSequence("LEVEL_03",3,3,0,0);
          this._wallIcon.gotoAndStop("LEVEL_01");
-         this._wallIcon.scaleX=this._wallIcon.scaleY=0.25;
+         this._wallIcon.scaleX=0.25;this._wallIcon.scaleY=101/404;
          this._wallIcon.x = 257;
          this._wallIcon.y = 233;
          _background.addChild(this._wallIcon);
          this._troopSelection = new TroopSelection();
          this._troopSelection.x = this._wallIcon.x;
-         this._troopSelection.y = this._wallIcon.y;
+         this._troopSelection.y = this._wallIcon.y;this._troopSelection.scaleY=1;
          _background.addChild(this._troopSelection);
          this._repairBar = new RepairBar();
          this._repairBar.x = 298;
@@ -1082,6 +1084,7 @@ package src.interfaces
          this._weaponNameText.y = 136;
          _background.addChild(this._weaponNameText);
          _background.setChildIndex(this._classified,_background.numChildren - 1);
+         if(_activeWeapon<9 && _weaponStats.purchased && _shopStats[_activeWeapon].level<2)updateArsenalUpgrade(null);
       }
       
       private function troopButtonHandler(param1:GameEvent) : void
@@ -1242,15 +1245,15 @@ package src.interfaces
                _background.removeChild(this._damageText);
             }
             this._damageText = this._fontManager.getString(this.troopData.damage,"SHOP",1,0);
-            this._damageText.x = 394 - this._damageText.width;
-            this._damageText.y = 154;
+            this._damageText.x = 366 - this._damageText.width/2;
+            this._damageText.y = 160;
             _background.addChild(this._damageText);
             if(this._rateOfFireText != null && _background.contains(this._rateOfFireText))
             {
                _background.removeChild(this._rateOfFireText);
             }
             this._rateOfFireText = this._fontManager.getString(this.troopData.rateOfFire,"SHOP",1,0);
-            this._rateOfFireText.x = 421;
+            this._rateOfFireText.x = 416 - this._rateOfFireText.width/2;
             this._rateOfFireText.y = this._damageText.y;
             _background.addChild(this._rateOfFireText);
             if(this._troopStockText != null && _background.contains(this._troopStockText))
@@ -1258,7 +1261,7 @@ package src.interfaces
                _background.removeChild(this._troopStockText);
             }
             this._troopStockText = this._fontManager.getString(String(this._troopStocks[this._activeTroop]),"SHOP",1,0);
-            this._troopStockText.x = 488 - this._troopStockText.width;
+            this._troopStockText.x = 470 - this._troopStockText.width/2;
             this._troopStockText.y = this._rateOfFireText.y;
             _background.addChild(this._troopStockText);
             if(this._troopStocks[this._activeTroop] < 6)
@@ -1300,15 +1303,15 @@ package src.interfaces
                _background.removeChild(this._damageText);
             }
             this._damageText = this._fontManager.getString("N/A","SHOP",1,0);
-            this._damageText.x = 394 - this._damageText.width;
-            this._damageText.y = 154;
+            this._damageText.x = 366 - this._damageText.width/2;
+            this._damageText.y = 160;
             _background.addChild(this._damageText);
             if(this._rateOfFireText != null && _background.contains(this._rateOfFireText))
             {
                _background.removeChild(this._rateOfFireText);
             }
             this._rateOfFireText = this._fontManager.getString("N/A","SHOP",1,0);
-            this._rateOfFireText.x = 421;
+            this._rateOfFireText.x = 416 - this._rateOfFireText.width/2;
             this._rateOfFireText.y = this._damageText.y;
             _background.addChild(this._rateOfFireText);
             if(this._troopStockText != null && _background.contains(this._troopStockText))
@@ -1316,7 +1319,7 @@ package src.interfaces
                _background.removeChild(this._troopStockText);
             }
             this._troopStockText = this._fontManager.getString("0","SHOP",1,0);
-            this._troopStockText.x = 488 - this._troopStockText.width;
+            this._troopStockText.x = 470 - this._troopStockText.width/2;
             this._troopStockText.y = this._rateOfFireText.y;
             _background.addChild(this._troopStockText);
             if(this._troopCostText != null && _background.contains(this._troopCostText))
@@ -2168,15 +2171,15 @@ package src.interfaces
             _background.removeChild(this._damageText);
          }
          this._damageText = this._fontManager.getString("N/A","SHOP",1,0);
-         this._damageText.x = 394 - this._damageText.width;
-         this._damageText.y = 154;
+         this._damageText.x = 366 - this._damageText.width/2;
+         this._damageText.y = 160;
          _background.addChild(this._damageText);
          if(this._rateOfFireText != null && _background.contains(this._rateOfFireText))
          {
             _background.removeChild(this._rateOfFireText);
          }
          this._rateOfFireText = this._fontManager.getString("N/A","SHOP",1,0);
-         this._rateOfFireText.x = 421;
+         this._rateOfFireText.x = 416 - this._rateOfFireText.width/2;
          this._rateOfFireText.y = this._damageText.y;
          _background.addChild(this._rateOfFireText);
          if(this._troopStockText != null && _background.contains(this._troopStockText))
@@ -2184,7 +2187,7 @@ package src.interfaces
             _background.removeChild(this._troopStockText);
          }
          this._troopStockText = this._fontManager.getString("0","SHOP",1,0);
-         this._troopStockText.x = 488 - this._troopStockText.width;
+         this._troopStockText.x = 470 - this._troopStockText.width/2;
          this._troopStockText.y = this._rateOfFireText.y;
          _background.addChild(this._troopStockText);
          if(this._troopCostText != null && _background.contains(this._troopCostText))
@@ -2284,7 +2287,7 @@ package src.interfaces
        var labels:Array=["POWER","ACC","CLIP SIZE","AMMO","STOCK"];
        for(var i:int=0;i<5;i++){p.graphics.lineStyle(1,0x1c2822);p.graphics.moveTo(129,145+i*17);p.graphics.lineTo(241,145+i*17);shopText(p,labels[i],130,150+i*17);}
        shopFrame(p,253,56,244,139);shopText(p,"TROOPS",280,70,1.3);
-       shopText(p,"DMG",349,154);shopText(p,"R/S",396,154);shopText(p,"STOCK",447,154);
+       shopText(p,"DMG",354,148);shopText(p,"R/S",404,148);shopText(p,"STOCK",454,148);
        shopFrame(p,253,201,244,184);shopText(p,"BARRICADE",335,213,1.3);shopText(p,"REPAIR",259,346);
        shopFrame(p,12,289,234,140);shopText(p,"MISSION REPORT",57,302,1.3);
        var report:Array=["WAVE","SCORE","MONEY EARNED","GRUNTS KILLED","VEHICLES DESTROYED","BARRICADE HEALTH"];
@@ -2296,10 +2299,11 @@ package src.interfaces
        for(var i:int=0;i<frames;i++){
         var p:Sprite=new Sprite();
         if(value.length==0 && w>70){
-         p.graphics.beginFill(i==0?0x080d0e:(i==1?0x30442b:0x26352c));p.graphics.drawRect(0,0,w,h);p.graphics.endFill();
-         if(i==1){p.graphics.beginFill(0x9ac76a);p.graphics.drawRect(0,2,2,h-4);p.graphics.endFill();}
-        }else {shopFrame(p,0,0,w,h,value=="NEXT WAVE"?(i==0?0x30442b:0x405937):(i==0?0x17201b:(i==1?0x263623:0x35452d)));}
-        if(value.length>0){var size:Number=value=="NEXT WAVE"?1.6:1;var t:Sprite=FontManager.getInstance().getString(value,"SHOP",1,0);t.scaleX=t.scaleY=size;t.x=(w-t.width)/2;t.y=(h-t.height)/2;p.addChild(t);}
+         p.graphics.beginFill(i==0?0x080d0e:(i==1?0x1e2c23:0x30442b));p.graphics.drawRect(0,0,w,h);p.graphics.endFill();
+         if(i==2){p.graphics.beginFill(0x9ac76a);p.graphics.drawRect(0,2,2,h-4);p.graphics.endFill();}
+        }else {shopFrame(p,0,0,w,h,value=="NEXT WAVE"?(i==0?0x4c6b33:0x648b43):(i==0?0x111715:(i==1?0x3c592e:0x597b3c)));}
+        if(!(value.length==0 && w>70)) {p.graphics.lineStyle(1,i==0 && value!="NEXT WAVE"?0x29332c:(i==2?0xb7d796:0x86a66b));p.graphics.drawRect(0.5,0.5,w-1,h-1);}
+        if(value.length>0){var size:Number=value=="NEXT WAVE"?2:1;var t:Sprite=FontManager.getInstance().getString(value,"SHOP",1,0);t.scaleX=t.scaleY=size;t.x=(w-t.width)/2;t.y=(h-t.height)/2;if(i==0 && value!="NEXT WAVE")t.alpha=0.4;p.addChild(t);}
         else if(w>70){p.graphics.lineStyle();p.graphics.beginFill(i==2?0xa0ce6b:0xc7d0bf);p.graphics.drawRect(5,5,5,6);p.graphics.drawRect(10,6,3,4);p.graphics.endFill();}
         var m:Matrix=new Matrix();m.translate(0,i*h);data.draw(p,m);
        }return new Bitmap(data);
@@ -2315,10 +2319,13 @@ package src.interfaces
       }
       private function refreshRepairLabel(e:Event):void {
        if(!visible||!_repairBar)return;
-       var value:String="HP "+String(_wallHealth)+" > "+String(_repairBar.health);if(value==_repairLabelValue)return;_repairLabelValue=value;
+       refreshActionStates();
+       refreshPurchaseActions();
+       var value:String=_wallLevel>=2?"MAXIMUM TIER":"UPGRADE TO TIER "+String(_wallLevel+2);if(value==_repairLabelValue)return;_repairLabelValue=value;
        if(_repairHealthLabel)_background.removeChild(_repairHealthLabel);
        _repairHealthLabel=_fontManager.getString(value,"SHOP",1,0);
-       _repairHealthLabel.x=320;_repairHealthLabel.y=369;_background.addChild(_repairHealthLabel);
+       _repairHealthLabel.x=258;_repairHealthLabel.y=371;
+       _background.addChild(_repairHealthLabel);
       }
       private function priceMark(p:Sprite):void {
        var mark:Sprite=new Sprite();var rows:Array=["01110","11000","11000","01110","00011","00011","11110"];
@@ -2335,8 +2342,56 @@ package src.interfaces
         var frame:BitmapData=new BitmapData(940,404,true,0);var crop:Matrix=new Matrix();frame.draw(scene,crop,null,null,null,false);sheet.copyPixels(frame,frame.rect,new Point(0,tier*404));frame.dispose();
        }return new Bitmap(sheet);
       }
+
+      private function statusCard(value:String,x:Number,y:Number,w:Number,h:Number):Sprite {
+       var p:Sprite=new Sprite();p.x=x;p.y=y;p.mouseEnabled=false;p.mouseChildren=false;shopFrame(p,0,0,w,h,0x111715);
+       var t:Sprite=_fontManager.getString(value,"SHOP",1,0);t.x=(w-t.width)/2;t.y=(h-t.height)/2;t.alpha=0.5;p.addChild(t);_background.addChild(p);return p;
+      }
+      private function refreshActionStates():void {
+       if(!_arsenalMax){_arsenalMax=statusCard("MAXED",127,230,114,23);_wallMax=statusCard("MAXED",258,365,51,18);_repairFull=statusCard("FULL",449,340,42,18);}
+       _arsenalMax.visible=_activeWeapon>=0 && _activeWeapon<9 && _shopStats[_activeWeapon].level>=2;
+       _wallMax.visible=_wallLevel>=2;
+       _repairFull.visible=_activeUpgrade==1 && _wallHealth>=_wallLevel*50+100;
+       _upgradeText.alpha=_wallUpgradeButton.enabled?1:0.4;
+      }
+
+      private function actionFace(b:Sprite,value:String,available:Boolean,w:Number,h:Number):void {
+       b.graphics.clear();b.graphics.beginFill(available?0x3c592e:0x111715);b.graphics.drawRect(0,0,w,h);b.graphics.endFill();b.graphics.lineStyle(1,available?0x86a66b:0x29332c);b.graphics.drawRect(0.5,0.5,w-1,h-1);
+       while(b.numChildren>0)b.removeChildAt(0);
+       var t:Sprite=_fontManager.getString(value,"SHOP",1,0);t.x=(w-t.width)/2;t.y=(h-t.height)/2;t.alpha=available?1:0.4;t.mouseEnabled=false;t.mouseChildren=false;b.addChild(t);b.buttonMode=available;b.mouseChildren=false;
+      }
+      private function refreshPurchaseActions():void {
+       _arsenalUpgradeButton.visible=false;if(_arsenalMax)_arsenalMax.visible=false;
+       if(_activeWeapon>=0){
+        var owned:Boolean=_activeWeapon<9 && _weaponStats.purchased;
+        var maxed:Boolean=owned && _shopStats[_activeWeapon].level>=2;
+        var name:String=maxed?"MAXED":(_activeWeapon==9?"BUY GRENADE":(_activeWeapon==10?"BUY PAYLOAD":(owned?"UPGRADE TO TIER "+String(_shopStats[_activeWeapon].level+2):"BUY WEAPON")));
+        _arsenalBuyButton.visible=true;
+        _arsenalBuyButton.getChildAt(0).visible=false;
+        if(weaponActionText)_arsenalBuyButton.removeChild(weaponActionText);
+        _arsenalBuyButton.graphics.clear();_arsenalBuyButton.graphics.beginFill(!maxed&&_arsenalBuyButton.enabled?0x3c592e:0x111715);_arsenalBuyButton.graphics.drawRect(0,0,114,23);_arsenalBuyButton.graphics.endFill();_arsenalBuyButton.graphics.lineStyle(1,!maxed&&_arsenalBuyButton.enabled?0x86a66b:0x29332c);_arsenalBuyButton.graphics.drawRect(0.5,0.5,113,22);
+        weaponActionText=_fontManager.getString(name,"SHOP",1,0);weaponActionText.x=(114-weaponActionText.width)/2;weaponActionText.y=8;weaponActionText.alpha=!maxed&&_arsenalBuyButton.enabled?1:0.4;weaponActionText.mouseEnabled=false;weaponActionText.mouseChildren=false;_arsenalBuyButton.addChild(weaponActionText);
+        if(maxed)_arsenalBuyButton.enabled=false;
+        _arsenalCostText.y=239;
+       }
+       _wallUpgradeButton.visible=false;_wallBuyButton.visible=false;_upgradeText.visible=false;if(_wallMax)_wallMax.visible=false;if(_repairFull)_repairFull.visible=false;if(_wallCostText)_wallCostText.visible=false;
+       if(!repairAction){repairAction=new Sprite();repairAction.x=443;repairAction.y=340;_background.addChild(repairAction);repairAction.addEventListener(MouseEvent.CLICK,repairPurchase);upgradeAction=new Sprite();upgradeAction.x=443;upgradeAction.y=365;_background.addChild(upgradeAction);upgradeAction.addEventListener(MouseEvent.CLICK,wallPurchase);}
+       var repairCost:Number=Math.max(0,_repairBar.health-_wallHealth)*(_wallLevel==0?1:(_wallLevel==1?3:6));
+       actionFace(repairAction,"REPAIR",repairCost>0&&_money>=repairCost,48,18);
+       var upgradeCost:Number=_wallLevel==0?1000:2000;
+       actionFace(upgradeAction,_wallLevel>=2?"MAXED":"UPGRADE",_wallLevel<2&&_money>=upgradeCost,48,18);
+       if(repairPriceText)_background.removeChild(repairPriceText);repairPriceText=_fontManager.getString(String(repairCost),"SHOP_DIGITS",1,_money>=repairCost?0:1);repairPriceText.x=384;repairPriceText.y=343;priceMark(repairPriceText);_background.addChild(repairPriceText);
+       if(upgradePriceText)_background.removeChild(upgradePriceText);upgradePriceText=_fontManager.getString(_wallLevel>=2?"--":String(upgradeCost),"SHOP_DIGITS",1,_money>=upgradeCost?0:1);upgradePriceText.x=384;upgradePriceText.y=368;priceMark(upgradePriceText);_background.addChild(upgradePriceText);
+      }
+      private function repairPurchase(e:MouseEvent):void {var cost:Number=Math.max(0,_repairBar.health-_wallHealth)*(_wallLevel==0?1:(_wallLevel==1?3:6));if(cost<=0||_money<cost)return;updateRepairCost(null);buyWallUpgrade(null);}
+      private function wallPurchase(e:MouseEvent):void {var cost:Number=_wallLevel==0?1000:2000;if(_wallLevel>=2||_money<cost)return;wallButtonHandler(null);buyWallUpgrade(null);}
    }
 }
+
+
+
+
+
 
 
 

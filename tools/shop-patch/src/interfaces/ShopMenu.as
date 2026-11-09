@@ -168,6 +168,7 @@ package src.interfaces
       private var _troopSelection:TroopSelection;
       
       private var _repairBar:RepairBar;
+      private var _arsenalMax:Sprite;private var _wallMax:Sprite;private var _repairFull:Sprite;
       private var _repairHealthLabel:Sprite; private var _repairLabelValue:String="";
       
       private var _wallLevel:int;
@@ -214,6 +215,7 @@ package src.interfaces
          this.InitializeStats();
          _background.x=8; _background.y=8; _background.scaleX=624/509; _background.scaleY=464/441;
          this._options = new Options();
+         this._options.visible = false;
          this.addChild(this._options);
          this._money = 0;
          this._activeWeapon = -1;
@@ -350,7 +352,7 @@ package src.interfaces
          this._arsenalUpgradeButton = new CustomButton(shopButton(114,23,3,"UPGRADE"),114,23,3);
          this._arsenalUpgradeButton.idleState = 2;
          this._arsenalUpgradeButton.overState = 3;
-         this._arsenalUpgradeButton.disabledState = 3;
+         this._arsenalUpgradeButton.disabledState = 1;
          this._arsenalUpgradeButton.x = 127;
          this._arsenalUpgradeButton.y = 230;
          this._arsenalUpgradeButton.visible = false;
@@ -492,9 +494,9 @@ package src.interfaces
       private function InitializeWall() : void
       {
          this._wallUpgradeButton = new CustomButton(shopButton(51,18,3,""),51,18,3);
-         this._wallUpgradeButton.idleState = 1;
-         this._wallUpgradeButton.overState = 2;
-         this._wallUpgradeButton.disabledState = 2;
+         this._wallUpgradeButton.idleState = 2;
+         this._wallUpgradeButton.overState = 3;
+         this._wallUpgradeButton.disabledState = 1;
          this._wallUpgradeButton.enabled = true;
          this._wallUpgradeButton.x = 258;
          this._wallUpgradeButton.y = 365;
@@ -2295,17 +2297,27 @@ package src.interfaces
        for(var i:int=0;i<frames;i++){
         var p:Sprite=new Sprite();
         if(value.length==0 && w>70){
-         p.graphics.beginFill(i==0?0x080d0e:(i==1?0x30442b:0x26352c));p.graphics.drawRect(0,0,w,h);p.graphics.endFill();
-         if(i==1){p.graphics.beginFill(0x9ac76a);p.graphics.drawRect(0,2,2,h-4);p.graphics.endFill();}
-        }else {shopFrame(p,0,0,w,h,value=="NEXT WAVE"?(i==0?0x30442b:0x405937):(i==0?0x17201b:(i==1?0x263623:0x35452d)));}
-        if(value.length>0){var size:Number=value=="NEXT WAVE"?1.6:1;var t:Sprite=FontManager.getInstance().getString(value,"SHOP",1,0);t.scaleX=t.scaleY=size;t.x=(w-t.width)/2;t.y=(h-t.height)/2;p.addChild(t);}
+         p.graphics.beginFill(i==0?0x080d0e:(i==1?0x1e2c23:0x30442b));p.graphics.drawRect(0,0,w,h);p.graphics.endFill();
+         if(i==2){p.graphics.beginFill(0x9ac76a);p.graphics.drawRect(0,2,2,h-4);p.graphics.endFill();}
+        }else {shopFrame(p,0,0,w,h,value=="NEXT WAVE"?(i==0?0x4c6b33:0x648b43):(i==0?0x111715:(i==1?0x3c592e:0x597b3c)));}
+        if(!(value.length==0 && w>70)) {p.graphics.lineStyle(1,i==0 && value!="NEXT WAVE"?0x29332c:(i==2?0xb7d796:0x86a66b));p.graphics.drawRect(0.5,0.5,w-1,h-1);}
+        if(value.length>0){var size:Number=value=="NEXT WAVE"?1.6:1;var t:Sprite=FontManager.getInstance().getString(value,"SHOP",1,0);t.scaleX=t.scaleY=size;t.x=(w-t.width)/2;t.y=(h-t.height)/2;if(i==0 && value!="NEXT WAVE")t.alpha=0.4;p.addChild(t);}
         else if(w>70){p.graphics.lineStyle();p.graphics.beginFill(i==2?0xa0ce6b:0xc7d0bf);p.graphics.drawRect(5,5,5,6);p.graphics.drawRect(10,6,3,4);p.graphics.endFill();}
         var m:Matrix=new Matrix();m.translate(0,i*h);data.draw(p,m);
        }return new Bitmap(data);
       }
 
+      public function grantTestingMoney():void {
+       this._money+=2000;
+       var weapons:Array=[_pistolButton,_smgButton,_shotgunButton,_assaultRifleButton,_sniperButton,_rpgButton,_railgunButton,_chaingunButton,_photonCannonButton,_grenadeButton,_payloadButton];
+       if(_activeWeapon>=0)weapons[_activeWeapon].dispatchEvent(new GameEvent(GameEvent.CLICKED));
+       var troops:Array=[_quickDrawButton,_gungHoButton,_buckshotButton,_eagleEyeButton,_heavyArmsButton,_bbqueButton];
+       if(_activeTroop>=0)troops[_activeTroop].dispatchEvent(new GameEvent(GameEvent.CLICKED));
+       if(_activeUpgrade==1)updateRepairCost(null);else wallButtonHandler(null);
+      }
       private function refreshRepairLabel(e:Event):void {
        if(!visible||!_repairBar)return;
+       refreshActionStates();
        var value:String="HP "+String(_wallHealth)+" > "+String(_repairBar.health);if(value==_repairLabelValue)return;_repairLabelValue=value;
        if(_repairHealthLabel)_background.removeChild(_repairHealthLabel);
        _repairHealthLabel=_fontManager.getString(value,"SHOP",1,0);
@@ -2326,8 +2338,21 @@ package src.interfaces
         var frame:BitmapData=new BitmapData(940,404,true,0);var crop:Matrix=new Matrix();frame.draw(scene,crop,null,null,null,false);sheet.copyPixels(frame,frame.rect,new Point(0,tier*404));frame.dispose();
        }return new Bitmap(sheet);
       }
+
+      private function statusCard(value:String,x:Number,y:Number,w:Number,h:Number):Sprite {
+       var p:Sprite=new Sprite();p.x=x;p.y=y;p.mouseEnabled=false;p.mouseChildren=false;shopFrame(p,0,0,w,h,0x111715);
+       var t:Sprite=_fontManager.getString(value,"SHOP",0,0);t.x=(w-t.width)/2;t.y=(h-t.height)/2;t.alpha=0.5;p.addChild(t);_background.addChild(p);return p;
+      }
+      private function refreshActionStates():void {
+       if(!_arsenalMax){_arsenalMax=statusCard("MAXED",127,230,114,23);_wallMax=statusCard("MAXED",258,365,51,18);_repairFull=statusCard("FULL",449,340,42,18);}
+       _arsenalMax.visible=_activeWeapon>=0 && _activeWeapon<9 && _shopStats[_activeWeapon].level>=2;
+       _wallMax.visible=_wallLevel>=2;
+       _repairFull.visible=_activeUpgrade==1 && _wallHealth>=_wallLevel*50+100;
+       _upgradeText.alpha=_wallUpgradeButton.enabled?1:0.4;
+      }
    }
 }
+
 
 
 
