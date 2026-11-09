@@ -1,0 +1,10 @@
+from pathlib import Path
+import shutil
+p=Path('source/game/src/interfaces/MainMenu.as');s=p.read_text().replace('import flash.net.URLRequest;','import flash.net.URLRequest;import flash.net.navigateToURL;').replace('private var _helpButton:Sprite;','private var _helpButton:Sprite;private var _moreButton:Sprite;')
+s=s.replace('60,32,520,231.1','100,16,440,195.55').replace('true,276','true,220').replace('false,378','false,305').replace('_helpButton=makeButton("HELP",false,305);','_helpButton=makeButton("HELP",false,305);\n   _moreButton=makeButton("MORE GAMES",false,390);')
+s=s.replace('var bounds:Rectangle=new Rectangle(426,url.indexOf("button-play")>=0?3:367,1318,348);','var bounds:Rectangle=url.indexOf("button-more-games")>=0?new Rectangle(10,58,2156,570):new Rectangle(426,url.indexOf("button-play")>=0?3:367,1318,348);')
+s=s.replace('new BitmapData(1318,348,true,0)','new BitmapData(int(bounds.width),int(bounds.height),true,0)').replace('b.x=190','b.x=205').replace('primary?"ui/button-play.png":"ui/button-help.png"','label=="MORE GAMES"?"ui/button-more-games.png":(primary?"ui/button-play.png":"ui/button-help.png")').replace('260,91','230,80.5')
+s=s.replace('_helpButton.addEventListener(MouseEvent.CLICK,help);','_helpButton.addEventListener(MouseEvent.CLICK,help);_moreButton.addEventListener(MouseEvent.CLICK,moreGames);').replace('_helpButton.removeEventListener(MouseEvent.CLICK,help);','_helpButton.removeEventListener(MouseEvent.CLICK,help);_moreButton.removeEventListener(MouseEvent.CLICK,moreGames);')
+s=s.replace('  private function help(e:MouseEvent)', '  private function moreGames(e:MouseEvent):void {SoundManager.getInstance().playSound("BUTTON_CLICK");navigateToURL(new URLRequest("https://www.freeonlinegames.com/?utm_source=games&utm_medium=DefendTheLine"),"_blank");}\n  private function help(e:MouseEvent)')
+p.write_text(s);shutil.copy2(p,'tools/main-menu-patch/src/interfaces/MainMenu.as')
+p=Path('tools/preview.cjs');s=p.read_text().replace("'/ui/button-help.png'","'/ui/button-help.png', '/ui/button-more-games.png'");p.write_text(s)

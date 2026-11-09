@@ -2396,6 +2396,7 @@ package src.components
 
       private function OpenShop() : void
       {
+         this._gui.visible = false;
          this._shopMenu.Update(this._isVictory,this._wave + 1,this._scoreEarned,this._moneyEarned,this._soldiersKilled,this._vehiclesKilled,this._grenades,this._bombs,this._health,this._shopMenu.wallLevel * 50 + 100,this._score,this._money);
          this._shopMenu.reset();
          this.Pause();
@@ -2492,6 +2493,7 @@ package src.components
          this.Unpause();
          this._isShopping = false;
          this._shopMenu.visible = false;
+         this._gui.visible = true;
          this._screenFade.visible = true;
          this._soundManager.stopSound("shop_music");
       }
@@ -2621,4 +2623,5 @@ package src.components
       }
    }
 }
+
 

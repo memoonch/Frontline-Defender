@@ -1,51 +1,18 @@
-package src.interfaces
-{
-   import com.hcLibrary.display.CustomButton;
-   import com.hcLibrary.events.GameEvent;
-   import com.hcLibrary.managers.ImageManager;
-   import flash.events.Event;
-   import src.interfaces.components.Menu;
-   
-   public class HelpMenu extends Menu
-   {
-      
-      private var _imageManager:ImageManager = ImageManager.getInstance();
-      
-      private var _closeButton:CustomButton;
-      
-      public function HelpMenu()
-      {
-         super(this._imageManager.getImage("help_background"));
-         this.InitializeButtons();
-      }
-      
-      private function InitializeButtons() : void
-      {
-         this._closeButton = new CustomButton(this._imageManager.getImage("exit_button_credits"),189,46,2);
-         this._closeButton.idleState = 1;
-         this._closeButton.overState = 2;
-         this._closeButton.x = 10;
-         this._closeButton.y = _background.height - this._closeButton.height - 6;
-         _background.addChild(this._closeButton);
-      }
-      
-      override public function addEventListeners() : void
-      {
-         this._closeButton.enabled = true;
-         this._closeButton.addMouseEvents();
-         this._closeButton.addEventListener(GameEvent.CLICKED,this.closeButtonHandler,false,0,true);
-      }
-      
-      override public function removeEventListeners() : void
-      {
-         this._closeButton.removeMouseEvents();
-         this._closeButton.removeEventListener(GameEvent.CLICKED,this.closeButtonHandler);
-      }
-      
-      private function closeButtonHandler(param1:GameEvent) : void
-      {
-         this.dispatchEvent(new Event("ACTIVATE_MAIN"));
-      }
-   }
+package src.interfaces {
+ import flash.display.Sprite;import flash.events.Event;import flash.events.MouseEvent;
+ import com.hcLibrary.events.GameEvent;import com.hcLibrary.managers.FontManager;
+ public class HelpMenu extends Sprite {
+  private var controls:ControlsMenu;private var back:Sprite;
+  public function HelpMenu(){super();graphics.beginFill(0x020706,0.72);graphics.drawRect(0,0,640,480);graphics.endFill();controls=new ControlsMenu("HELP");addChild(controls);
+   back=new Sprite();back.x=125;back.y=419;back.buttonMode=true;back.mouseChildren=false;paint(false);addChild(back);
+   var text:Sprite=FontManager.getInstance().getString("BACK TO MENU","SHOP",1,0);text.scaleX=1.3;text.scaleY=1.73;text.x=(390-text.width)/2;text.y=12;back.addChild(text);
+   back.addEventListener(MouseEvent.ROLL_OVER,function(e:MouseEvent):void{paint(true);});back.addEventListener(MouseEvent.ROLL_OUT,function(e:MouseEvent):void{paint(false);});
+  }
+  private function paint(hover:Boolean):void {back.graphics.clear();back.graphics.beginFill(hover?0x35452d:0x18211c);back.graphics.drawRect(0,0,390,34);back.graphics.endFill();back.graphics.lineStyle(1,0x67736d);back.graphics.drawRect(0.5,0.5,389,33);}
+  public function Activate():void {visible=true;controls.reset();controls.Activate();addEventListeners();}
+  public function Deactivate():void {removeEventListeners();controls.reset();visible=false;dispatchEvent(new GameEvent(GameEvent.RESUME));}
+  public function addEventListeners():void {back.addEventListener(MouseEvent.CLICK,close);}
+  public function removeEventListeners():void {back.removeEventListener(MouseEvent.CLICK,close);}
+  private function close(e:MouseEvent):void {dispatchEvent(new Event("ACTIVATE_MAIN"));}
+ }
 }
-

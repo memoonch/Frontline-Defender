@@ -214,6 +214,7 @@ package src.interfaces
          this.InitializeStats();
          _background.x=8; _background.y=8; _background.scaleX=624/509; _background.scaleY=464/441;
          this._options = new Options();
+         this._options.visible = false;
          this.addChild(this._options);
          this._money = 0;
          this._activeWeapon = -1;
@@ -2336,6 +2337,7 @@ package src.interfaces
       }
    }
 }
+
 
 
 
