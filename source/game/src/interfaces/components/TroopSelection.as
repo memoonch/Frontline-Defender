@@ -2,7 +2,7 @@ package src.interfaces.components
 {
    import com.hcLibrary.display.AnimatedSprite;
    import com.hcLibrary.managers.ImageManager;
-   import flash.display.Sprite;
+   import flash.display.Sprite; import flash.display.Bitmap; import flash.display.BitmapData; import flash.geom.Matrix;import flash.geom.Rectangle;import flash.geom.Point;
    import flash.events.Event;
    import flash.events.MouseEvent;
    
@@ -44,10 +44,7 @@ package src.interfaces.components
          this.addChild(this._container);
          this.addChild(this._background);
          this.InitializeParts();
-         var hints:Sprite=new Sprite();hints.mouseEnabled=false;hints.mouseChildren=false;
-         for(var hintIndex:int=0;hintIndex<this._slots.length;hintIndex++){
-          var slot:Sprite=this._slots[hintIndex];hints.graphics.lineStyle(1,0x8d9d79,0.75);hints.graphics.drawRect(slot.x+5,slot.y+2,56,9);
-         }this.addChildAt(hints,0);
+
          this._activeSlot = -1;
       }
       
@@ -62,7 +59,7 @@ package src.interfaces.components
          var _loc1_:int = 0;
          while(_loc1_ < 6)
          {
-            _loc2_ = new AnimatedSprite(this._imageManager.getImage("shop_troop_placement"),66,13,4);
+            _loc2_ = new AnimatedSprite(deploymentSheet(),66,13,4);
             _loc2_.addSequence("IDLE_EMPTY",3,3,0,0);
             _loc2_.addSequence("OVER_EMPTY",2,2,0,0);
             _loc2_.addSequence("IDLE_FULL",1,1,0,0);
@@ -96,7 +93,8 @@ package src.interfaces.components
             }
             this._slots.push(_loc2_);
             this._container.addChild(_loc2_);
-            _loc3_ = new AnimatedSprite(this._imageManager.getImage("shop_troops"),64,35,6);
+            _loc3_ = new AnimatedSprite(detailedTroops(),256,140,6);
+            _loc3_.scaleX=_loc3_.scaleY=0.25;
             _loc3_.addSequence("PISTOL",1,1,0,0);
             _loc3_.addSequence("ASSAULT_RIFLE",2,2,0,0);
             _loc3_.addSequence("SHOTGUN",3,3,0,0);
@@ -343,6 +341,35 @@ package src.interfaces.components
       public function get loadout() : Array
       {
          return this._loadout;
+      }
+
+      private static function deploymentSheet():Bitmap {
+       var data:BitmapData=new BitmapData(66,52,true,0);
+       for(var i:int=0;i<4;i++){
+        var hover:Boolean=i==1||i==3;var occupied:Boolean=i==0||i==3;var edge:uint=hover?0xa6de6b:(occupied?0x80b75a:0x7e9271);
+        var p:Sprite=new Sprite();p.graphics.lineStyle(0.6,edge,hover?1:0.65);p.graphics.beginFill(hover?0x456434:0x101c16,hover?0.55:0.3);
+        p.graphics.moveTo(3,2);p.graphics.lineTo(50,2);p.graphics.lineTo(63,10);p.graphics.lineTo(16,10);p.graphics.lineTo(3,2);p.graphics.endFill();
+        p.graphics.lineStyle(1,edge,0.95);p.graphics.moveTo(3,5);p.graphics.lineTo(3,2);p.graphics.lineTo(11,2);
+        p.graphics.moveTo(55,10);p.graphics.lineTo(63,10);p.graphics.lineTo(60,7);
+        if(occupied){p.graphics.lineStyle();p.graphics.beginFill(0x9bd46c);p.graphics.drawRect(30,5,4,2);p.graphics.endFill();}
+        var matrix:Matrix=new Matrix();matrix.translate(0,i*13);data.draw(p,matrix);
+       }return new Bitmap(data);
+      }
+
+      private static var detailedTroopSheet:BitmapData;
+      private static function detailedTroops():Bitmap {
+       if(detailedTroopSheet)return new Bitmap(detailedTroopSheet);
+       var images:ImageManager=ImageManager.getInstance();var sheet:BitmapData=new BitmapData(256,840,true,0);
+       var keys:Array=["ally_pistol","ally_assault_rifle","ally_shotgun","ally_sniper","ally_rocket_launcher","ally_flamethrower"];
+       var widths:Array=[103,128,118,103,158,78];var heights:Array=[75,75,74,51,90,79];
+       for(var i:int=0;i<6;i++){
+        var original:BitmapData=images.getImage(keys[i]).bitmapData;
+        var frame:BitmapData=new BitmapData(widths[i],heights[i],true,0);frame.copyPixels(original,new Rectangle(0,0,widths[i],heights[i]),new Point());
+        var bounds:Rectangle=frame.getColorBoundsRect(0xff000000,0,false);
+        var factor:Number=Math.min(240/Math.max(1,bounds.width),132/Math.max(1,bounds.height));
+        var m:Matrix=new Matrix();m.scale(factor,factor);m.translate((256-bounds.width*factor)/2-bounds.x*factor,i*140+140-bounds.bottom*factor);
+        sheet.draw(frame,m,null,null,null,false);frame.dispose();
+       }detailedTroopSheet=sheet;return new Bitmap(sheet);
       }
    }
 }

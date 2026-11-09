@@ -399,8 +399,10 @@ package src
          }
       }
       
+      private var testingMoneyKeyHeld:Boolean=false;
       private function keyPressed(param1:KeyboardEvent) : void
       {
+         if(param1.ctrlKey && param1.keyCode==75){param1.preventDefault();if(!testingMoneyKeyHeld && this._game!=null)this._game.grantTestingMoney();testingMoneyKeyHeld=true;return;}
          if(param1.keyCode==83){if(this._game!=null)this._game.openShopShortcut();return;}
          if(Controls.getKeyInUse(param1.keyCode) && !Controls.getKeyState(null,param1.keyCode))
          {
@@ -488,6 +490,7 @@ package src
       
       private function keyReleased(param1:KeyboardEvent) : void
       {
+         if(param1.keyCode==75 || param1.keyCode==17)testingMoneyKeyHeld=false;
          if(Controls.getKeyInUse(param1.keyCode) && Controls.getKeyState(null,param1.keyCode))
          {
             Controls.keyStateChange(null,param1.keyCode);

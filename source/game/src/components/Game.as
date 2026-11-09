@@ -2383,6 +2383,10 @@ package src.components
          this._crosshair.stopShooting();
       }
       
+      public function grantTestingMoney():void {
+       if(this._gameoverMenu.visible)return;
+       if(this._isShopping && this._shopMenu.visible)this._shopMenu.grantTestingMoney();else this._money+=2000;
+      }
       public function openShopShortcut():void
       {
          if(this._paused || this._isShopping || this._health<=0 || this._gameoverMenu.visible)return;

@@ -2304,6 +2304,14 @@ package src.interfaces
        }return new Bitmap(data);
       }
 
+      public function grantTestingMoney():void {
+       this._money+=2000;
+       var weapons:Array=[_pistolButton,_smgButton,_shotgunButton,_assaultRifleButton,_sniperButton,_rpgButton,_railgunButton,_chaingunButton,_photonCannonButton,_grenadeButton,_payloadButton];
+       if(_activeWeapon>=0)weapons[_activeWeapon].dispatchEvent(new GameEvent(GameEvent.CLICKED));
+       var troops:Array=[_quickDrawButton,_gungHoButton,_buckshotButton,_eagleEyeButton,_heavyArmsButton,_bbqueButton];
+       if(_activeTroop>=0)troops[_activeTroop].dispatchEvent(new GameEvent(GameEvent.CLICKED));
+       if(_activeUpgrade==1)updateRepairCost(null);else wallButtonHandler(null);
+      }
       private function refreshRepairLabel(e:Event):void {
        if(!visible||!_repairBar)return;
        var value:String="HP "+String(_wallHealth)+" > "+String(_repairBar.health);if(value==_repairLabelValue)return;_repairLabelValue=value;
