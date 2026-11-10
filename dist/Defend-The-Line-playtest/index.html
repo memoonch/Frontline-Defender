@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frontline Defender</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #17191d; }
+  body { display: grid; place-items: center; }
+  #game { position: relative; width: min(960px, 100vw, 177.777778vh); aspect-ratio: 16 / 9; }
+  #game.viewport-fill { position: fixed; inset: 0; width: 100vw; height: 100vh; }
+  ruffle-player { display: block; width: 100%; height: 100%; }
+  #status { position: absolute; color: #eee; font: 16px Arial; }
+
+  #loader {position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#101711 url('/ui/menu-background.png') center/100% 100%;overflow:hidden;color:#f0efdc;font-family:monospace;}
+  #loader::before {content:"";position:absolute;inset:0;background:rgba(0,5,3,.38);pointer-events:none;}
+  #load-logo {position:relative;width:70%;height:auto;filter:drop-shadow(0 5px 9px #000);}
+  #loading-panel {position:relative;width:48%;margin-top:5%;padding:18px 24px;background:linear-gradient(150deg,#242622ee,#090c0bee 55%,#1c211aee);border:1px solid #b5a274;box-shadow:inset 0 0 0 3px #343830,0 6px 20px #000;text-align:center;}
+  #load-label {font:bold italic clamp(10px,1.6vw,17px) Arial,sans-serif;letter-spacing:3px;color:#f9e4b0;text-shadow:0 2px 2px #000;}
+  #load-track {margin:12px 0 8px;height:17px;border:1px solid #ab9565;background:#11130f;padding:3px;box-shadow:inset 0 1px 4px #000;transform:skewX(-12deg);}
+  #load-fill {height:100%;width:0;background:linear-gradient(#ffe484,#ffb500 45%,#bd6500);box-shadow:0 0 12px #ffad0088;}
+  #load-percent {font:bold italic clamp(13px,2vw,20px) Arial,sans-serif;color:#ffbd33;text-shadow:0 2px 2px #000;}
+  #loader.impact #load-logo {animation:logo-impact .75s ease-out both;}
+  #loader.impact {animation:screen-impact .6s ease-out;}
+  #loader.leaving {opacity:0;transition:opacity .35s;pointer-events:none;}
+  @keyframes logo-impact {0%{transform:scale(1.65);opacity:0;}35%{transform:scale(.95);opacity:1;}55%{transform:scale(1.035);}100%{transform:scale(1);opacity:1;}}
+  @keyframes screen-impact {34%,48%{filter:brightness(1.4);transform:translate(2px,1px);}40%,55%{transform:translate(-2px,-1px);}100%{transform:none;filter:none;}}
+  @media(prefers-reduced-motion:reduce){#loader.impact,#loader.impact #load-logo{animation:none;}}
+</style>
+<script defer src="https://unpkg.com/@ruffle-rs/ruffle/ruffle.js"></script>
+</head>
+<body>
+<main id="game" aria-label="Frontline Defender"><section id="loader" aria-label="Loading game"><img id="load-logo" src="/ui/menu-logo.png" alt="Defend the Line"><div id="loading-panel"><div id="load-label" role="status">LOADING GAME</div><div id="load-track" role="progressbar" aria-label="Game loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="load-fill"></div></div><div id="load-percent">0%</div></div></section></main>
+<script>
+  const game = document.getElementById('game');
+  // F11 is handled by the browser. Detect its viewport change without
+  // intercepting the game's keyboard controls or recreating the player.
+  function resize() {
+    const f11 = Math.abs(window.innerHeight - screen.height) <= 2
+      && Math.abs(window.innerWidth - screen.width) <= 2;
+    game.classList.toggle('viewport-fill', f11 || !!document.fullscreenElement);
+  }
+  window.addEventListener('resize', resize);
+  document.addEventListener('fullscreenchange', resize);
+  // Embedded browsers may deliver F11 to the page rather than handling it.
+  // Use native document fullscreen there; regular browser F11 still works.
+  window.addEventListener('keydown', event => {
+    if (event.key !== 'F11' || event.repeat) return;
+    event.preventDefault();
+    const change = document.fullscreenElement
+      ? document.exitFullscreen()
+      : document.documentElement.requestFullscreen();
+    change.catch(error => console.warn('Use the browser fullscreen command.', error));
+  }, true);
+  resize();
+  window.addEventListener('load', async () => {
+    const loader=document.getElementById('loader'), label=document.getElementById('load-label');
+    const audio=new Audio('/ui/startup.mp3');audio.preload='auto';audio.loop=false;
+    function progress(value){document.getElementById('load-fill').style.width=value+'%';document.getElementById('load-percent').textContent=value+'%';document.getElementById('load-track').setAttribute('aria-valuenow',value);}
+    try {
+      const response=await fetch('/game.swf');if(!response.ok)throw new Error('Game download failed');
+      const total=Number(response.headers.get('Content-Length'));const reader=response.body.getReader();const chunks=[];let received=0;
+      while(true){const result=await reader.read();if(result.done)break;chunks.push(result.value);received+=result.value.length;if(total)progress(Math.min(90,Math.floor(received/total*90)));}
+      const data=new Uint8Array(received);let offset=0;for(const chunk of chunks){data.set(chunk,offset);offset+=chunk.length;}
+      progress(95);label.textContent='PREPARING GAME';
+      const player=window.RufflePlayer.newest().createPlayer();game.prepend(player);player.ruffle().volume=0;
+      await player.ruffle().load({data,swfFileName:'game.swf',base:location.origin+'/',autoplay:'off',unmuteOverlay:'hidden',scale:'noScale',splashScreen:false});
+      player.ruffle().volume=0;player.pause();
+      progress(100);label.textContent='LOADING COMPLETE';loader.classList.add('impact');
+        const finished=new Promise(resolve=>{audio.addEventListener('ended',resolve,{once:true});audio.addEventListener('error',resolve,{once:true});});
+        let playing=false;try{await audio.play();playing=true;}catch(error){console.info('Startup audio unavailable',error);}
+        await new Promise(resolve=>setTimeout(resolve,850));if(playing)await finished;
+        audio.pause();audio.currentTime=0;player.play();loader.classList.add('leaving');setTimeout(()=>{loader.remove();player.ruffle().volume=1;},400);
+
+    } catch(error){label.textContent='COULD NOT LOAD - REFRESH TO RETRY';console.error(error);}
+  });
+</script>
+<script>window.addEventListener("keydown",function(e){if(e.ctrlKey && e.code==="KeyK")e.preventDefault();},true);</script>
+</body>
+</html>
+
+

@@ -4,26 +4,72 @@ package src.components.effects
    import com.hcLibrary.events.GameEvent;
    import flash.display.Sprite;
    import flash.events.Event;
+   import flash.external.ExternalInterface;
+   import com.hcLibrary.managers.FontManager;
    
    public class SwipeEffect extends Sprite
    {
       
       private var _counter:int;
       
-      public function SwipeEffect()
+      private var _loading:Sprite;
+      private var _dots:Array;
+      private var _tick:int;
+      private var _browserLoading:Boolean = false;
+
+      public function SwipeEffect(showLoading:Boolean = false)
       {
          super();
+         mouseChildren = false;
+         if(showLoading)
+         {
+            _loading = new Sprite();
+            var title:Sprite = FontManager.getInstance().getString("LOADING","SHOP",2,0);
+            title.x = -title.width/2;
+            _loading.addChild(title);
+            _dots = [];
+            for(var i:int=0;i<3;i++)
+            {
+               var dot:Sprite = new Sprite();
+               dot.graphics.beginFill(0x9ec66b);
+               dot.graphics.drawRect(0,0,4,4);
+               dot.graphics.endFill();
+               dot.x = -12+i*10;
+               dot.y = 26;
+               _dots.push(dot);
+               _loading.addChild(dot);
+            }
+            _loading.x = Window.width/2;
+            _loading.y = Window.height/2-12;
+            _loading.visible = false;
+            addChild(_loading);
+         }
       }
       
       public function start() : void
       {
          this._counter = 0;
+         if(_loading != null && ExternalInterface.available)
+         {
+            try { _browserLoading = ExternalInterface.call("gameTransitionLoading",true) === true; }
+            catch(error:Error) { _browserLoading = false; }
+         }
+         this._tick = 0;
+         this.addEventListener(Event.ENTER_FRAME,this.animateLoading,false,0,true);
          this.addEventListener(Event.ENTER_FRAME,this.closeAnimation,false,0,true);
       }
       
+      private function animateLoading(event:Event):void
+      {
+         if(_loading == null) return;
+         _tick++;
+         for(var i:int=0;i<3;i++) _dots[i].alpha = int(_tick/5)%3==i ? 1 : 0.25;
+      }
+
       private function closeAnimation(param1:Event) : void
       {
          ++this._counter;
+         if(_loading != null && !_browserLoading && this._counter >= 8) _loading.visible = true;
          if(this._counter <= 10)
          {
             this.graphics.clear();
@@ -57,6 +103,7 @@ package src.components.effects
       
       private function openAnimation(param1:Event) : void
       {
+         if(_loading != null && this._counter >= 2) _loading.visible = false;
          ++this._counter;
          if(this._counter <= 5)
          {
@@ -82,6 +129,11 @@ package src.components.effects
             if(this._counter >= 10)
             {
                this.removeEventListener(Event.ENTER_FRAME,this.openAnimation);
+               if(_browserLoading) {
+                  try { ExternalInterface.call("gameTransitionLoading",false); } catch(error:Error) {}
+                  _browserLoading = false;
+               }
+               this.removeEventListener(Event.ENTER_FRAME,this.animateLoading);
                this.dispatchEvent(new GameEvent(GameEvent.FINISHED));
             }
          }

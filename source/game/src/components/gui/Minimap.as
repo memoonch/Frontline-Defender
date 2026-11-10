@@ -2,7 +2,7 @@ package src.components.gui
 {
    import com.hcLibrary.display.AnimatedSprite;
    import com.hcLibrary.managers.ImageManager;
-   import flash.display.Sprite;
+   import flash.display.Sprite; import flash.display.Bitmap; import flash.display.BitmapData; import flash.geom.Matrix;
    import flash.geom.Rectangle;
    import src.game.pools.EffectsPool;
    
@@ -34,7 +34,8 @@ package src.components.gui
       
       private function InitializePlate() : void
       {
-         this._plate = new AnimatedSprite(this._imageManager.getImage("minimap"),210,52,2);
+         this._plate = new AnimatedSprite(sharpMap(),840,208,2);
+         this._plate.scaleX = this._plate.scaleY = 0.25;
          this._plate.addSequence("IDLE",2,2,0,0);
          this._plate.gotoAndStop("IDLE");
          this.addChild(this._plate);
@@ -70,6 +71,64 @@ package src.components.gui
          border.graphics.moveTo(191,51);border.graphics.lineTo(202,51);border.graphics.lineTo(202,41);addChild(border);
       }
       
+      private function sharpMap():Bitmap
+      {
+         var original:BitmapData = this._imageManager.getImage("minimap").bitmapData;
+         var clean:BitmapData = original.clone();
+         var strokes:Sprite = new Sprite();
+         strokes.graphics.lineStyle(1.15,0x19e832,1,false,"normal","round","round");
+         var previous:Array = [];
+         for(var x:int=210;x<420;x++)
+         {
+            var current:Array=[];
+            var y:int=0;
+            while(y<52)
+            {
+               if(!mapGreen(original.getPixel32(x,y))) { y++; continue; }
+               var first:int=y;
+               while(y<52 && mapGreen(original.getPixel32(x,y)))
+               {
+                  var replacement:uint=original.getPixel32(x,Math.max(0,first-2));
+                  clean.setPixel32(x,y,replacement); y++;
+               }
+               var center:Number=(first+y-1)/2;
+               current.push(center);
+               var best:Number=1000;
+               var match:Number=0;
+               for each(var old:Number in previous) if(Math.abs(old-center)<best) { best=Math.abs(old-center); match=old; }
+               if(best<3) { strokes.graphics.moveTo(x-1,match); strokes.graphics.lineTo(x,center); }
+            }
+            previous=current;
+         }
+         var enlarged:BitmapData = mapDouble(mapDouble(clean));
+         enlarged.draw(strokes,new Matrix(4,0,0,4));
+         return new Bitmap(enlarged);
+      }
+
+      private static function mapGreen(c:uint):Boolean
+      {
+         var r:int=(c>>16)&255; var g:int=(c>>8)&255; var b:int=c&255;
+         return g>100 && g>r*1.8 && g>b*1.8;
+      }
+
+      private static function mapDouble(source:BitmapData):BitmapData
+      {
+         var result:BitmapData=new BitmapData(source.width*2,source.height*2,true,0);
+         for(var y:int=0;y<source.height;y++) for(var x:int=0;x<source.width;x++)
+         {
+            var e:uint=source.getPixel32(x,y);
+            var b:uint=source.getPixel32(x,Math.max(0,y-1));
+            var d:uint=source.getPixel32(Math.max(0,x-1),y);
+            var f:uint=source.getPixel32(Math.min(source.width-1,x+1),y);
+            var h:uint=source.getPixel32(x,Math.min(source.height-1,y+1));
+            result.setPixel32(x*2,y*2,d==b && b!=f && d!=h?d:e);
+            result.setPixel32(x*2+1,y*2,b==f && b!=d && f!=h?f:e);
+            result.setPixel32(x*2,y*2+1,d==h && d!=b && h!=f?d:e);
+            result.setPixel32(x*2+1,y*2+1,h==f && d!=h && b!=f?f:e);
+         }
+         return result;
+      }
+
       public function updateFrame(param1:int) : void
       {
          this._overlay.graphics.clear();

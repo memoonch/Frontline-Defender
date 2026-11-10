@@ -1,0 +1,3 @@
+from pathlib import Path
+import re
+p=Path('tools/preview.html');s=p.read_text();s=re.sub(r'<div id="status".*?</div>\s*<main id="game".*?</main>','''<main id="game" aria-label="Frontline Defender"><section id="loader" aria-label="Loading game"><img id="load-logo" src="/ui/menu-logo.png" alt="Defend the Line"><div id="loading-panel"><div id="load-label" role="status">LOADING GAME</div><div id="load-track" role="progressbar" aria-label="Game loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="load-fill"></div></div><div id="load-percent">0%</div><button id="start-intro" type="button">CLICK TO START</button></div></section></main>''',s);p.write_text(s)

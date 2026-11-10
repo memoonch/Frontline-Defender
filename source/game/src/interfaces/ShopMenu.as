@@ -7,7 +7,7 @@ package src.interfaces
    import com.hcLibrary.managers.FontManager;
    import com.hcLibrary.managers.ImageManager;
    import flash.display.Sprite; import flash.display.Bitmap; import flash.display.BitmapData; import flash.geom.Matrix;import flash.geom.Point;
-   import flash.events.Event;import flash.events.MouseEvent;
+   import flash.events.Event;import flash.events.MouseEvent; import flash.text.TextField; import flash.text.TextFormat; import flash.text.TextFieldAutoSize;
    import src.Main;
    import src.components.gui.Options;
    import src.data.ShopTroopData;
@@ -455,23 +455,26 @@ package src.interfaces
             switch(_loc1_)
             {
                case 0:
-                  _loc2_ = new AnimatedSprite(this._imageManager.getImage("ally_pistol"),103,75,7);
+                  _loc2_ = new AnimatedSprite(refineTroop(this._imageManager.getImage("ally_pistol")),206,150,7);
                   break;
                case 1:
-                  _loc2_ = new AnimatedSprite(this._imageManager.getImage("ally_assault_rifle"),128,75,8);
+                  _loc2_ = new AnimatedSprite(refineTroop(this._imageManager.getImage("ally_assault_rifle")),256,150,8);
                   break;
                case 2:
-                  _loc2_ = new AnimatedSprite(this._imageManager.getImage("ally_shotgun"),118,74,7);
+                  _loc2_ = new AnimatedSprite(refineTroop(this._imageManager.getImage("ally_shotgun")),236,148,7);
                   break;
                case 3:
-                  _loc2_ = new AnimatedSprite(this._imageManager.getImage("ally_sniper"),103,51,7);
+                  _loc2_ = new AnimatedSprite(refineTroop(this._imageManager.getImage("ally_sniper")),206,102,7);
                   break;
                case 4:
-                  _loc2_ = new AnimatedSprite(this._imageManager.getImage("ally_rocket_launcher"),158,90,12);
+                  _loc2_ = new AnimatedSprite(refineTroop(this._imageManager.getImage("ally_rocket_launcher")),316,180,12);
                   break;
                case 5:
-                  _loc2_ = new AnimatedSprite(this._imageManager.getImage("ally_flamethrower"),78,79,8);
+                  _loc2_ = new AnimatedSprite(refineTroop(this._imageManager.getImage("ally_flamethrower")),156,158,8);
             }
+            _loc2_.scaleX = _loc2_.scaleY = 0.5;
+            var troopBitmap:Bitmap = _loc2_.getChildAt(0) as Bitmap;
+            if(troopBitmap != null) troopBitmap.smoothing = false;
             _loc2_.addSequence("IDLE",1,1,5,5,1,"IDLE2");
             _loc2_.addSequence("IDLE2",1,4,5,0,1,"IDLE");
             _loc2_.gotoAndPlay("IDLE");
@@ -486,12 +489,39 @@ package src.interfaces
             _loc1_++;
          }
          this._topSecret = new Sprite();
-         this._topSecret.addChild(this._imageManager.getImage("shop_top_secret"));
+         var stamp:TextField = new TextField();
+         stamp.defaultTextFormat = new TextFormat("Arial Black",21,0xd91c18,true);
+         stamp.autoSize = TextFieldAutoSize.LEFT;
+         stamp.text = "TOP SECRET";
+         stamp.selectable = false;
+         stamp.mouseEnabled = false;
+         stamp.rotation = -15;
+         stamp.y = 24;
+         this._topSecret.addChild(stamp);
          this._topSecret.x = 348;
          this._topSecret.y = 77;
          _background.addChild(this._topSecret);
       }
       
+      private static function refineTroop(image:Bitmap):Bitmap
+      {
+         var source:BitmapData = image.bitmapData;
+         var result:BitmapData = new BitmapData(source.width*2,source.height*2,true,0);
+         for(var y:int=0;y<source.height;y++) for(var x:int=0;x<source.width;x++)
+         {
+            var e:uint=source.getPixel32(x,y);
+            var b:uint=source.getPixel32(x,Math.max(0,y-1));
+            var d:uint=source.getPixel32(Math.max(0,x-1),y);
+            var f:uint=source.getPixel32(Math.min(source.width-1,x+1),y);
+            var h:uint=source.getPixel32(x,Math.min(source.height-1,y+1));
+            result.setPixel32(x*2,y*2,d==b && b!=f && d!=h?d:e);
+            result.setPixel32(x*2+1,y*2,b==f && b!=d && f!=h?f:e);
+            result.setPixel32(x*2,y*2+1,d==h && d!=b && h!=f?d:e);
+            result.setPixel32(x*2+1,y*2+1,h==f && d!=h && b!=f?f:e);
+         }
+         return new Bitmap(result);
+      }
+
       private function InitializeWall() : void
       {
          this._wallUpgradeButton = new CustomButton(shopButton(51,18,3,""),51,18,3);
@@ -1871,41 +1901,6 @@ package src.interfaces
       
       private function updateRepairCost(param1:Event) : void
       {
-         switch(this._activeWeapon)
-         {
-            case 0:
-               this._pistolButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 1:
-               this._smgButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 2:
-               this._shotgunButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 3:
-               this._assaultRifleButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 4:
-               this._sniperButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 5:
-               this._rpgButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 6:
-               this._railgunButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 7:
-               this._chaingunButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 8:
-               this._photonCannonButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 9:
-               this._grenadeButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-               break;
-            case 10:
-               this._payloadButton.dispatchEvent(new GameEvent(GameEvent.CLICKED));
-         }
          this._wallUpgradeButton.enabled = true;
          this._wallUpgradeButton.addMouseEvents();
          this._wallBuyButton.enabled = false;
@@ -1946,6 +1941,8 @@ package src.interfaces
          this._wallCostText.x = 384;
          this._wallCostText.y = 343;
          priceMark(this._wallCostText); _background.addChild(this._wallCostText);
+         this._wallCostText.visible=false;
+         this.refreshPurchaseActions();
       }
       
       public function reset() : void
@@ -2381,7 +2378,7 @@ package src.interfaces
        var upgradeCost:Number=_wallLevel==0?1000:2000;
        actionFace(upgradeAction,_wallLevel>=2?"MAXED":"UPGRADE",_wallLevel<2&&_money>=upgradeCost,48,18);
        if(repairPriceText)_background.removeChild(repairPriceText);repairPriceText=_fontManager.getString(String(repairCost),"SHOP_DIGITS",1,_money>=repairCost?0:1);repairPriceText.x=384;repairPriceText.y=343;priceMark(repairPriceText);_background.addChild(repairPriceText);
-       if(upgradePriceText)_background.removeChild(upgradePriceText);upgradePriceText=_fontManager.getString(_wallLevel>=2?"--":String(upgradeCost),"SHOP_DIGITS",1,_money>=upgradeCost?0:1);upgradePriceText.x=384;upgradePriceText.y=368;priceMark(upgradePriceText);_background.addChild(upgradePriceText);
+       if(upgradePriceText)_background.removeChild(upgradePriceText);upgradePriceText=_fontManager.getString(_wallLevel>=2?"0":String(upgradeCost),"SHOP_DIGITS",1,_money>=upgradeCost?0:1);upgradePriceText.x=384;upgradePriceText.y=368;priceMark(upgradePriceText);upgradePriceText.visible=_wallLevel<2;_background.addChild(upgradePriceText);
       }
       private function repairPurchase(e:MouseEvent):void {var cost:Number=Math.max(0,_repairBar.health-_wallHealth)*(_wallLevel==0?1:(_wallLevel==1?3:6));if(cost<=0||_money<cost)return;updateRepairCost(null);buyWallUpgrade(null);}
       private function wallPurchase(e:MouseEvent):void {var cost:Number=_wallLevel==0?1000:2000;if(_wallLevel>=2||_money<cost)return;wallButtonHandler(null);buyWallUpgrade(null);}

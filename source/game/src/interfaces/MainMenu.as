@@ -17,6 +17,7 @@ package src.interfaces
  import flash.filters.GlowFilter;
  import com.hcLibrary.events.GameEvent;
  import com.hcLibrary.managers.SoundManager;
+ import com.hcLibrary.managers.FontManager;
  public class MainMenu extends Sprite
  {
   private var _playButton:Sprite;
@@ -33,6 +34,11 @@ package src.interfaces
    _playButton=makeButton("PLAY",true,228);
    _helpButton=makeButton("HELP",false,305);
    _moreButton=makeButton("MORE GAMES",false,382);
+   var version:Sprite=FontManager.getInstance().getString("VERSION 1.0","SHOP",1,0);
+   version.x=624-version.width; version.y=460;
+   version.alpha=0.8; version.mouseEnabled=false; version.mouseChildren=false;
+   version.filters=[new GlowFilter(0x000000,0.9,3,3,4)];
+   addChild(version);
   }
   private function loadArt(parent:Sprite,url:String,px:Number,py:Number,w:Number,h:Number,trim:Boolean=false):void
   {

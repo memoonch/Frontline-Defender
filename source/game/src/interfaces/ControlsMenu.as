@@ -100,8 +100,8 @@ package src.interfaces
       private function drawControls(title:String):void {
        var p:Sprite=this._background;p.graphics.beginFill(0x080d0e,0.98);p.graphics.drawRect(0,0,390,338);p.graphics.endFill();p.graphics.lineStyle(1,0x67736d);p.graphics.drawRect(0.5,0.5,389,337);p.graphics.lineStyle(1,0x27332e);p.graphics.drawRect(2.5,2.5,385,333);
        controlText(title,18,18,2);controlText("COMBAT AND CAMERA",18,56,1.2);controlText("WEAPON HOTKEYS",219,56,1.2);
-       var actions:Array=["AIM","SHOOT","CHANGE WEAPON","PAN LEFT","PAN RIGHT","GRENADE","PAYLOAD","RELOAD","MUTE","PAUSE","SHOP"];
-       var keys:Array=["MOUSE","LEFT CLICK","MOUSE WHEEL","A / LEFT","D / RIGHT","Q","W","R","M","P / ESC","S"];
+       var actions:Array=["AIM","SHOOT","CHANGE WEAPON","PAN LEFT","PAN RIGHT","GRENADE","PAYLOAD","RELOAD","MUTE","PAUSE"];
+       var keys:Array=["MOUSE","LEFT CLICK","MOUSE WHEEL","A / LEFT","D / RIGHT","Q","W","R","M","P / ESC"];
        for(var i:int=0;i<actions.length;i++){
         var y:Number=82+i*20;p.graphics.lineStyle(1,0x1c2822);p.graphics.moveTo(17,y+14);p.graphics.lineTo(200,y+14);
         controlText(actions[i],18,y,1);var k:Sprite=controlText(keys[i],0,y,1);k.x=200-k.width;
@@ -116,4 +116,5 @@ package src.interfaces
       }
    }
 }
+
 
